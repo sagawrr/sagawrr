@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Run update script
-        run: node .github/scripts/update-readme-v2.mjs
+        run: node .github/scripts/update-readme.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GH_API_KEY_7X9K2M }}
           USERNAME: sagawrr
