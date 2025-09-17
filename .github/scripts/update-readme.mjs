@@ -51,7 +51,6 @@ const LANGUAGE_MAP = {
   tex: 'TeX',
   mk: 'Makefile',
   vue: 'Vue', svelte: 'Svelte', astro: 'Astro',
-  json: 'JSON', yaml: 'YAML', yml: 'YAML',
   graphql: 'GraphQL',
   sql: 'SQL',
   gradle: 'Gradle',
@@ -67,7 +66,7 @@ const ICON_MAP = {
   Makefile: 'cmake', Vue: 'vue', Angular: 'angular', Svelte: 'svelte', React: 'react',
   'Next.js': 'nextjs', Astro: 'astro', Solid: 'solidjs', 'Node.js': 'nodejs',
   Express: 'express', Dockerfile: 'docker', Docker: 'docker', Gradle: 'gradle',
-  YAML: 'yaml', JSON: 'json', GraphQL: 'graphql', SQL: 'postgres',
+  GraphQL: 'graphql', SQL: 'postgres',
   PostgreSQL: 'postgres', MySQL: 'mysql', SQLite: 'sqlite', MongoDB: 'mongodb',
   Redis: 'redis', Bash: 'bash', Powershell: 'powershell',
 };
@@ -203,7 +202,7 @@ function buildStackIconsHtml(languages) {
     return '';
   }
 
-  return `<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;max-width:220px;margin:0 auto;">${iconPairs.map(p => 
+  return `<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;max-width:220px;margin:0 auto;">${iconPairs.map(p => 
     `<img src="https://skillicons.dev/icons?i=${p.id}" alt="${escapeHtml(p.name)} icon" title="${escapeHtml(p.name)}" style="height:16px;"/>`
   ).join('')}</div>`;
 }
