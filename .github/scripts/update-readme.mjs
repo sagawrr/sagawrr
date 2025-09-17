@@ -1,14 +1,32 @@
 import fs from "fs";
-import fetch from "node-fetch";
 
 const username = process.env.USERNAME;
 const token = process.env.GITHUB_TOKEN;
+
+if (!username || !token) {
+  console.error('Missing required environment variables: USERNAME and GITHUB_TOKEN');
+  process.exit(1);
+}
 
 const headers = { Authorization: `token ${token}` };
 const api = `https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=1`;
 
 const res = await fetch(api, { headers });
-const [repo] = await res.json();
+const data = await res.json();
+
+if (!res.ok) {
+  console.error(`GitHub API error: ${res.status} ${res.statusText}`);
+  console.error(data);
+  process.exit(1);
+}
+
+if (!Array.isArray(data)) {
+  console.error('Expected array from GitHub API, got:', typeof data);
+  console.error(data);
+  process.exit(1);
+}
+
+const [repo] = data;
 
 let cardHtml = "";
 
