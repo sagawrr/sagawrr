@@ -72,7 +72,7 @@ const ICON_MAP = {
   Redis: 'Redis', Bash: 'Bash', Powershell: 'Powershell',
 };
 const SVG_WIDTH = 800;
-const ICON_THEME = 'Dark'; // or 'Light'
+const ICON_THEME = 'Light'; // or 'Light'
 const ICONS_DIR = './icons';
 
 // Helper: Fetch JSON with retries and 202 handling
@@ -192,21 +192,36 @@ async function getRepoLanguages(owner, repo, options) {
 
 // Load local SVG icon content
 function loadIconSvg(id) {
-  const filename = `${id.charAt(0).toUpperCase() + id.slice(1)}-${ICON_THEME}.svg`;
-  const filePath = path.join(ICONS_DIR, filename);
-  try {
+  const capitalizedId = id.charAt(0).toUpperCase() + id.slice(1);
+  
+  // Try with theme first
+  let filename = `${capitalizedId}-${ICON_THEME}.svg`;
+  let filePath = path.join(ICONS_DIR, filename);
+  if (fs.existsSync(filePath)) {
     let svg = fs.readFileSync(filePath, 'utf8');
-    // Remove existing width and height to avoid duplicates
-    svg = svg.replace(/<svg([^>]*)/, (match, attrs) => {
+    svg = svg.replace(/<svg([^>]*)/gi, (match, attrs) => {
       let newAttrs = attrs.replace(/width\s*=\s*["'][^"']*["']/gi, '');
       newAttrs = newAttrs.replace(/height\s*=\s*["'][^"']*["']/gi, '');
       return `<svg${newAttrs} width="20" height="20" style="margin:0 4px;"`;
     });
     return svg;
-  } catch (error) {
-    console.error(`Icon not found: ${filePath}`);
-    return '';
   }
+  
+  // Fallback to plain
+  filename = `${capitalizedId}.svg`;
+  filePath = path.join(ICONS_DIR, filename);
+  if (fs.existsSync(filePath)) {
+    let svg = fs.readFileSync(filePath, 'utf8');
+    svg = svg.replace(/<svg([^>]*)/gi, (match, attrs) => {
+      let newAttrs = attrs.replace(/width\s*=\s*["'][^"']*["']/gi, '');
+      newAttrs = newAttrs.replace(/height\s*=\s*["'][^"']*["']/gi, '');
+      return `<svg${newAttrs} width="20" height="20" style="margin:0 4px;"`;
+    });
+    return svg;
+  }
+  
+  console.error(`Icon not found for ${id}`);
+  return '';
 }
 
 // Build stack icons HTML with inline SVGs
