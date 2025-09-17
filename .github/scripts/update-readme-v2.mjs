@@ -70,7 +70,6 @@ const ICON_MAP = {
   PostgreSQL: 'postgres', MySQL: 'mysql', SQLite: 'sqlite', MongoDB: 'mongodb',
   Redis: 'redis', Bash: 'bash', Powershell: 'powershell',
 };
-const SVG_WIDTH = 800;
 
 // Helper: Fetch JSON with retries and 202 handling
 async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
@@ -307,8 +306,8 @@ async function generateTableRow(index, repo, options) {
   </tr>`;
 }
 
-// Generate table HTML
-async function generateTableHtml(recentProjects, options) {
+// Generate card HTML
+async function generateCardHtml(recentProjects, options) {
   if (recentProjects.length === 0) {
     return `
 <table align="center" style="${TABLE_STYLE}">
@@ -345,26 +344,6 @@ async function generateTableHtml(recentProjects, options) {
 </table>`;
 }
 
-// Generate SVG content
-function generateSvg(tableHtml, recentProjects) {
-  const rowCount = recentProjects.length === 0 ? 2 : recentProjects.length + 2;
-  const svgHeight = 60 + 40 * rowCount; // Approximate height calculation
-
-  return `<svg fill="none" viewBox="0 0 ${SVG_WIDTH} ${svgHeight}" width="${SVG_WIDTH}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
-  <foreignObject width="100%" height="100%">
-    <div xmlns="http://www.w3.org/1999/xhtml">
-      <style>
-        /* Additional global styles if needed */
-        a:hover {
-          color: #7ee787;
-        }
-      </style>
-      ${tableHtml}
-    </div>
-  </foreignObject>
-</svg>`;
-}
-
 // Main
 (async () => {
   const repos = await fetchRepositories();
@@ -375,17 +354,13 @@ function generateSvg(tableHtml, recentProjects) {
 
   const options = token ? { headers: { Authorization: `token ${token}` } } : {};
   const recentProjects = await filterRecentProjects(repos, options);
-  const tableHtml = await generateTableHtml(recentProjects, options);
-  const svgContent = generateSvg(tableHtml, recentProjects);
+  const cardHtml = await generateCardHtml(recentProjects, options);
 
   try {
-    fs.writeFileSync('recent-projects.svg', svgContent);
-
     let readme = fs.readFileSync('README.md', 'utf8');
-    const imgHtml = '<img src="recent-projects.svg" alt="Recent Projects" style="width:100%; display:block; margin:0 auto;">';
     readme = readme.replace(
       /<!-- PROJECT_CARD_START -->[\s\S]*<!-- PROJECT_CARD_END -->/,
-      `<!-- PROJECT_CARD_START -->\n${imgHtml}\n<!-- PROJECT_CARD_END -->`
+      `<!-- PROJECT_CARD_START -->\n${cardHtml}\n<!-- PROJECT_CARD_END -->`
     );
     const nowUtc = new Date().toUTCString();
     readme = readme.replace(
