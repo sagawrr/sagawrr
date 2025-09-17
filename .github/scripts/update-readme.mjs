@@ -3,30 +3,56 @@ import fs from "fs";
 const username = process.env.USERNAME;
 const token = process.env.GITHUB_TOKEN;
 
-if (!username || !token) {
-  console.error('Missing required environment variables: USERNAME and GITHUB_TOKEN');
+if (!username) {
+  console.error('Missing required environment variable: USERNAME');
   process.exit(1);
 }
 
-const headers = { Authorization: `token ${token}` };
-const api = `https://api.github.com/user/repos?sort=updated&direction=desc&per_page=1&affiliation=owner,collaborator`;
+let repo = null;
+let apiError = null;
 
-const res = await fetch(api, { headers });
-const data = await res.json();
-
-if (!res.ok) {
-  console.error(`GitHub API error: ${res.status} ${res.statusText}`);
-  console.error(data);
-  process.exit(1);
+// Try authenticated API first (if token is available)
+if (token) {
+  console.log('🔐 Attempting authenticated API call...');
+  try {
+    const headers = { Authorization: `token ${token}` };
+    const api = `https://api.github.com/user/repos?sort=updated&direction=desc&per_page=1&affiliation=owner,collaborator`;
+    
+    const res = await fetch(api, { headers });
+    const data = await res.json();
+    
+    if (res.ok && Array.isArray(data)) {
+      repo = data[0];
+      console.log('✅ Authenticated API call successful');
+    } else {
+      apiError = `GitHub API error: ${res.status} ${res.statusText}`;
+      console.log(`⚠️  Authenticated API failed: ${apiError}`);
+    }
+  } catch (error) {
+    apiError = error.message;
+    console.log(`⚠️  Authenticated API error: ${apiError}`);
+  }
 }
 
-if (!Array.isArray(data)) {
-  console.error('Expected array from GitHub API, got:', typeof data);
-  console.error(data);
-  process.exit(1);
+// Fallback to public API if authenticated call failed or no token
+if (!repo) {
+  console.log('🌐 Falling back to public API...');
+  try {
+    const api = `https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=1&type=owner`;
+    const res = await fetch(api);
+    const data = await res.json();
+    
+    if (res.ok && Array.isArray(data)) {
+      repo = data[0];
+      console.log('✅ Public API call successful');
+    } else {
+      console.error(`Public API error: ${res.status} ${res.statusText}`);
+      console.error(data);
+    }
+  } catch (error) {
+    console.error('Public API error:', error.message);
+  }
 }
-
-const [repo] = data;
 
 let cardHtml = "";
 let language = "Unknown";
@@ -87,11 +113,17 @@ if (!repo) {
 }
 
 // Replace in README.md
-let readme = fs.readFileSync("README.md", "utf8");
-readme = readme.replace(
-  /<!-- PROJECT_CARD_START -->[\s\S]*<!-- PROJECT_CARD_END -->/,
-  `<!-- PROJECT_CARD_START -->\n${cardHtml}\n<!-- PROJECT_CARD_END -->`
-);
-fs.writeFileSync("README.md", readme);
+try {
+  let readme = fs.readFileSync("README.md", "utf8");
+  readme = readme.replace(
+    /<!-- PROJECT_CARD_START -->[\s\S]*<!-- PROJECT_CARD_END -->/,
+    `<!-- PROJECT_CARD_START -->\n${cardHtml}\n<!-- PROJECT_CARD_END -->`
+  );
+  fs.writeFileSync("README.md", readme);
+} catch (error) {
+  console.error('Error updating README.md:', error.message);
+  process.exit(1);
+}
 
-console.log(`✅ Updated README with last project: ${repo?.private ? "Classified" : repo.name} (${language}, ${status})`);
+const apiMethod = token && repo ? 'authenticated' : 'public';
+console.log(`✅ Updated README with last project: ${repo?.private ? "Classified" : repo?.name || "None"} (${language}, ${status}) via ${apiMethod} API`);
