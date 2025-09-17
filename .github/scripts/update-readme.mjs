@@ -45,35 +45,32 @@ const LANGUAGE_MAP = {
   ps1: 'PowerShell',
   html: 'HTML',
   css: 'CSS', scss: 'SCSS', sass: 'SASS', less: 'Less',
-  m: 'Objective-C', mm: 'Objective-C++',
   r: 'R',
   lua: 'Lua',
   pl: 'Perl',
   tex: 'TeX',
-  ipynb: 'Jupyter Notebook',
   mk: 'Makefile',
   vue: 'Vue', svelte: 'Svelte', astro: 'Astro',
   json: 'JSON', yaml: 'YAML', yml: 'YAML',
   graphql: 'GraphQL',
   sql: 'SQL',
   gradle: 'Gradle',
-  cmake: 'Makefile',
+  cmake: 'CMake',
 };
 const ICON_MAP = {
-  JavaScript: 'js', TypeScript: 'ts', Python: 'python', Java: 'java', Go: 'go',
+  JavaScript: 'js', TypeScript: 'ts', Python: 'py', Java: 'java', Go: 'go',
   C: 'c', 'C++': 'cpp', 'C#': 'cs', Rust: 'rust', Ruby: 'ruby', PHP: 'php',
   Kotlin: 'kotlin', Swift: 'swift', Scala: 'scala', Dart: 'dart', Elixir: 'elixir',
   Haskell: 'haskell', Shell: 'bash', PowerShell: 'powershell', HTML: 'html',
-  CSS: 'css', SCSS: 'scss', SASS: 'sass', Less: 'less', 'Objective-C': 'objectivec',
-  R: 'r', Lua: 'lua', Perl: 'perl', TeX: 'latex', 'Jupyter Notebook': 'jupyter',
+  CSS: 'css', SCSS: 'scss', SASS: 'sass', Less: 'less',
+  R: 'r', Lua: 'lua', Perl: 'perl', TeX: 'latex',
   Makefile: 'cmake', Vue: 'vue', Angular: 'angular', Svelte: 'svelte', React: 'react',
   'Next.js': 'nextjs', Astro: 'astro', Solid: 'solidjs', 'Node.js': 'nodejs',
   Express: 'express', Dockerfile: 'docker', Docker: 'docker', Gradle: 'gradle',
-  YAML: 'yaml', JSON: 'json', GraphQL: 'graphql', SQL: 'postgresql',
-  PostgreSQL: 'postgresql', MySQL: 'mysql', SQLite: 'sqlite', MongoDB: 'mongodb',
-  Redis: 'redis', Bash: 'bash', Powershell: 'powershell', 'Objective-C++': 'objectivec',
+  YAML: 'yaml', JSON: 'json', GraphQL: 'graphql', SQL: 'postgres',
+  PostgreSQL: 'postgres', MySQL: 'mysql', SQLite: 'sqlite', MongoDB: 'mongodb',
+  Redis: 'redis', Bash: 'bash', Powershell: 'powershell',
 };
-const FALLBACK_ICONS = 'https://skillicons.dev/icons?i=github,git,markdown&theme=dark';
 
 // Helper: Fetch JSON with retries and 202 handling
 async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
@@ -203,10 +200,10 @@ function buildStackIconsHtml(languages) {
   }, []);
 
   if (iconPairs.length === 0) {
-    return `<img src="${FALLBACK_ICONS}" alt="fallback icons" style="height:16px;"/>`;
+    return '';
   }
 
-  return `<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;max-width:220px;margin:0 auto;">${iconPairs.map(p => 
+  return `<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-start;max-width:220px;margin:0 auto;">${iconPairs.map(p => 
     `<img src="https://skillicons.dev/icons?i=${p.id}" alt="${escapeHtml(p.name)} icon" title="${escapeHtml(p.name)}" style="height:16px;"/>`
   ).join('')}</div>`;
 }
