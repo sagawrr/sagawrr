@@ -42,7 +42,7 @@ const LANGUAGE_MAP = {
   sh: 'Bash', bash: 'Bash',
   ps1: 'PowerShell',
   html: 'HTML',
-  css: 'CSS', scss: 'SCSS', sass: 'SASS', less: 'Less',
+  css: 'CSS', scss: 'SCSS', less: 'Less',
   r: 'R',
   lua: 'Lua',
   pl: 'Perl',
@@ -191,8 +191,8 @@ function buildStackBadgesHtml(languages) {
   if (badges.length === 0) {
     return '';
   }
-  return `<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">${badges.map(lang =>
-    `<a href="#" style="display:block;"><img src="https://img.shields.io/badge/${encodeURIComponent(lang)}-${getColor(lang)}?logo=${encodeURIComponent(lang.toLowerCase())}&logoColor=fff" alt="${encodeURIComponent(lang)} badge" title="${encodeURIComponent(lang)}" style="height:16px;vertical-align:middle;"/></a>`
+  return `<div style="display:flex;flex-wrap:wrap;justify-content:center;">${badges.map(lang =>
+    `<a href="#" style="display:block;margin:2px 4px;"><img src="https://img.shields.io/badge/${encodeURIComponent(lang)}-${getColor(lang)}?logo=${encodeURIComponent(lang.toLowerCase())}&logoColor=fff" alt="${encodeURIComponent(lang)} badge" title="${encodeURIComponent(lang)}" style="height:20px;vertical-align:middle;"/></a>`
   ).join('')}</div>`;
 }
 // Get color for language badge
@@ -326,7 +326,7 @@ async function generateTableRow(index, repo, options) {
   }
   const projectName = repo.private
     ? '🔒 Classified'
-    : `<a href="${repo.html_url}" style="color:#ffcc80;text-decoration:none;transition:color 0.3s ease;" onmouseover="this.style.color=\'#ffcc80\'" onmouseout="this.style.color=\'#ffcc80\'" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`; // Simplified hover effect for Markdown
+    : `<a href="${repo.html_url}" style="color:#ffcc80;text-decoration:none;transition:color 0.3s ease;" onmouseover="this.style.color='#ffcc80'" onmouseout="this.style.color='#ffcc80'" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`; // Simplified hover effect for Markdown
   const rowBg = index % 2 === 0 ? EVEN_ROW_BG : ODD_ROW_BG;
   return `
   <tr style="background:${rowBg};">
