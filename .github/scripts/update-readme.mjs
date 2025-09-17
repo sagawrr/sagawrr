@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 const username = process.env.USERNAME;
 const token = process.env.GITHUB_TOKEN;
@@ -16,7 +17,7 @@ if (!username) {
 const TABLE_STYLE = 'border-collapse:collapse;border:1px solid #8CFF98;background:linear-gradient(135deg,#0d0f11 60%,#1c1f25 100%);font-family:\'Fira Mono\',monospace;box-shadow:0 0 18px rgba(140,255,152,.2);border-radius:8px;overflow:hidden;';
 const HEADER_STYLE = 'background:linear-gradient(90deg,#8CFF98 0%,#7ee787 100%);padding:8px 12px;text-align:center;font-weight:bold;color:#0d0f11;text-shadow:0 1px 2px rgba(0,0,0,0.3);';
 const SUBHEADER_STYLE = 'background:rgba(28,31,37,0.8);';
-const CELL_STYLE = 'padding:4px 20px;border:1px solid #8CFF98;';
+const CELL_STYLE = 'padding:8px 20px;border:1px solid #8CFF98;'; // Increased padding
 const BOLD_GREEN = 'color:#8CFF98;font-weight:bold;';
 const BOLD_ORANGE = 'color:#ffb86c;font-weight:bold;';
 const CENTER = 'text-align:center;';
@@ -71,6 +72,8 @@ const ICON_MAP = {
   Redis: 'redis', Bash: 'bash', Powershell: 'powershell',
 };
 const SVG_WIDTH = 800;
+const ICON_THEME = 'Dark'; // or 'Light'
+const ICONS_DIR = './icons';
 
 // Helper: Fetch JSON with retries and 202 handling
 async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
@@ -187,25 +190,40 @@ async function getRepoLanguages(owner, repo, options) {
   return Object.entries(data).sort((a, b) => b[1] - a[1]).map(([name]) => name);
 }
 
-// Build stack icons HTML
+// Load local SVG icon content
+function loadIconSvg(id) {
+  const filename = `${id.charAt(0).toUpperCase() + id.slice(1)}-${ICON_THEME}.svg`;
+  const filePath = path.join(ICONS_DIR, filename);
+  try {
+    let svg = fs.readFileSync(filePath, 'utf8');
+    svg = svg.replace(/<svg/, '<svg width="20" height="20" style="margin:0 4px;"');
+    return svg;
+  } catch (error) {
+    console.error(`Icon not found: ${filePath}`);
+    return '';
+  }
+}
+
+// Build stack icons HTML with inline SVGs
 function buildStackIconsHtml(languages) {
   const seenIds = new Set();
-  const iconPairs = languages.reduce((acc, lang) => {
+  const iconSvgs = [];
+  for (const lang of languages) {
     const id = getIconId(lang);
     if (id && !seenIds.has(id)) {
       seenIds.add(id);
-      acc.push({ name: lang, id });
+      const svgContent = loadIconSvg(id);
+      if (svgContent) {
+        iconSvgs.push(svgContent);
+      }
     }
-    return acc;
-  }, []);
+  }
 
-  if (iconPairs.length === 0) {
+  if (iconSvgs.length === 0) {
     return '';
   }
 
-  return `<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-start;max-width:220px;margin:0 auto;">${iconPairs.map(p => 
-    `<img src="https://skillicons.dev/icons?i=${p.id}" alt="${escapeHtml(p.name)} icon" title="${escapeHtml(p.name)}" style="height:16px;"/>`
-  ).join('')}</div>`;
+  return `<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-start;align-items:center;max-width:220px;margin:0 auto;">${iconSvgs.join('')}</div>`;
 }
 
 // Get changes HTML
@@ -292,7 +310,7 @@ async function generateTableRow(index, repo, options) {
   }
 
   const projectName = repo.private
-    ? '🔒 Classified'
+    ? '🔒 <span style="color:#ffb86c;">Classified</span>'
     : `<a href="${repo.html_url}" style="color:#ffb86c;text-decoration:none;transition:color 0.3s ease;" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`;
 
   const rowBg = index % 2 === 0 ? EVEN_ROW_BG : ODD_ROW_BG;
@@ -348,7 +366,7 @@ async function generateTableHtml(recentProjects, options) {
 // Generate SVG content
 function generateSvg(tableHtml, recentProjects) {
   const rowCount = recentProjects.length === 0 ? 2 : recentProjects.length + 2;
-  const svgHeight = 60 + 40 * rowCount; // Approximate height calculation
+  const svgHeight = 100 + 60 * rowCount; // Increased height to prevent cropping
 
   return `<svg fill="none" viewBox="0 0 ${SVG_WIDTH} ${svgHeight}" width="${SVG_WIDTH}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
   <foreignObject width="100%" height="100%">
