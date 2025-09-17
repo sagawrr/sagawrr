@@ -10,10 +10,8 @@
   <!-- Animated Glitch Name -->
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Mono&pause=1500&color=8CFF98&center=true&vCenter=true&width=500&height=45&lines=Hi%2C+I%E2%80%99m+sagawrr;Builder%2C+Debugger%2C+Dreamer;Wake+up%2C+Neo...;The+Matrix+has+you..." alt="Glitchy intro"/>
 
-  <!-- Subheading -->
-  <h2 style="color:#7ee787;font-family:'Fira Mono',monospace;font-weight:400;font-size:1.22em;margin:18px 0 0 0;letter-spacing:.5px;">
-    I see things you people wouldn’t believe
-  </h2>
+  <!-- Animated Kagome -->
+  <img src="assets/animated-kagome.svg" alt="Animated Kagome" style="margin:18px 0;max-width:500px;height:auto;"/>
 
   <br/>
 

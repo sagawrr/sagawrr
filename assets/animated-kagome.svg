@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="500" height="300">
+  <text id="Frame-0" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                    ~ /,*,*`                    "                 ^,         *"    </tspan>
+    <tspan dy="1.2em" x="0">                  -" "* *  _,                                      *         ****""</tspan>
+    <tspan dy="1.2em" x="0">                  `* ~ | ,*,`                                       ; " * +     , `</tspan>
+    <tspan dy="1.2em" x="0">             .         ,/ /         ,; _/|,                         ;  *,/~*";*/ ",</tspan>
+    <tspan dy="1.2em" x="0">                `+*    .,       ,,_/ |/``|                          |`     \*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~*~;_. /| ,||/ |/*+,|_   ,|` /|  _         \   |         _, / </tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`~*,,        **.,,, ,` \\| |`|"||*|",_*_|/^_\+`|_/,          *       ` ,,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \`""*``*      `|   |/|  ` |/ ^;|||;_"*|`|           +*      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *"          * |;   "*          |,_|^\, *__,      ' ,   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ^;       ,      ,|*_/   ||~*^|      ;*            -</tspan>
+    <tspan dy="1.2em" x="0">**_ *``                      / , |       *         "   /|*,//`                     </tspan>
+    <tspan dy="1.2em" x="0">^*       `~.,  .*          __  \~=\      ,_          ,|/"_+"                       </tspan>
+    <tspan dy="1.2em" x="0">~          . ,       _,*"`   , "*|*'~   ^          ,;;\^|          ,`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**;,*`       "+=|`   "\_     __,+*"`_/| ',    ___;~=,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,"            /`     `|*""`   ,* ,`|_`  /|_``**"`_/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||     ,`''~.~*+'/,".~|/\,*|  "\_``                  </tspan>
+    <tspan dy="1.2em" x="0">              "      ,       /``     |       _/"    || _/      `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"+;     ||     ,`\      *`.~~~~*`       `|            `+,           , </tspan>
+    <tspan dy="1.2em" x="0">           ;^| *,    *\     | |       , _+`         /*                "\  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  \, *,   |    |` \      _/"          /|`               ~~~~\   ...~. ,</tspan>
+  </text>
+  <text id="Frame-1" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                    ~.,`=*/    *                '                 ',         *"    </tspan>
+    <tspan dy="1.2em" x="0">                  -" `* /   ,                                      *         ****""</tspan>
+    <tspan dy="1.2em" x="0">                  `* ~ |  /|`                                       ; " * +     , `</tspan>
+    <tspan dy="1.2em" x="0">             .         `/`,         ,|* /|                          ;  *,/~*";+/ ",</tspan>
+    <tspan dy="1.2em" x="0">                `+*    /,;|      _ /`|/^ `             ,            |`     \*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~*~;_` ,~  |*|  |_+/_!  _*/ _=  _;         ; ` |         _, / </tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`~*,,        **.,,, *| \|| |`|"||_|/ /`|/^_|~" |_,; ,        |       ` ,,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \`""*``*      `|   |/|  '|| "*;||/;~"\|;|          \+*      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *"          ^ |;   "*    `     |,_|^\  *__         ,   *    , *,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ^;       ,      ,|*_/   ||~**;       |            -</tspan>
+    <tspan dy="1.2em" x="0">**_ *``                        , |       '        ``   /|*,`/`       ^             </tspan>
+    <tspan dy="1.2em" x="0">^*       `~.,  .*          __  \~=\     ~,_           |/"_+"                       </tspan>
+    <tspan dy="1.2em" x="0">~          . ,       _,*"`   \ *+|/',   ""          ,/,^|          /`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**;,*`       *~~|`   "\_     __,+*"`_`| ',    ___;,=,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,"            /`     \|*""`   ,* /`|_` _*|```**"`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||     |`''~.~*\"/,"~~|/~,^|  "\_```                 </tspan>
+    <tspan dy="1.2em" x="0">              *      __      /`/     |       _="    || _*      `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"/;     ||     ,`       "".~~~~*`       `|            "\,           , </tspan>
+    <tspan dy="1.2em" x="0">           ;^| *,    */     | |       ; _+`         /*`               ",  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  *, *,   |    |` *      _|"          /|"               ~~~~\,  ...~. ,</tspan>
+  </text>
+  <text id="Frame-2" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                    ~.\/,+/    *                *                 *          *"    </tspan>
+    <tspan dy="1.2em" x="0">                  -" `|",`                                         *         ****""</tspan>
+    <tspan dy="1.2em" x="0">                  `* ~  ` ,|'                                       , " * +     , `</tspan>
+    <tspan dy="1.2em" x="0">             .        `` /\`        _// ,_                          ;  *,/~*";+/ ",</tspan>
+    <tspan dy="1.2em" x="0">                `+*   , * \      /,,`|,/|`             *            |`     \*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~*~;_`, ,_ |"|``|^+|       _~  _,;           ` |         _, / </tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`/*,,        **.,,,  \_",| |`|"|||, _/|/`/|="`,\_+|          |       ` ,,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \`"^*``*    `_'|   |/| '*_^"`**||/;~|+;;| *        |+*      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *"          ^ |,  `"           |,_|*\. |__        "    *    , *,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         * ^;       ,      ,|*_*   ||\/\_       |            -</tspan>
+    <tspan dy="1.2em" x="0">**_ *``                        , |       *        `    ||*,//`       |             </tspan>
+    <tspan dy="1.2em" x="0">`*       `~.,  .*          ___ |~=\     ~,_           |/"_+"        ,              </tspan>
+    <tspan dy="1.2em" x="0">~          . ,       _,*"`   | *=|/^~   ""          ;/,^|          /`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**;,*`       *,_=`   "\_     __,~*"`; | ',    ____,+,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,*            /`     `|*""`   ,* ,\||` ,\|```***"\/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |`             ||     ,`''~.~*+"/,"~||*,/^|  "\_````                </tspan>
+    <tspan dy="1.2em" x="0">              "      ,       |``     |       _="   *|, ,"      `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"=;     ||     ,`       ^".~~~~*`       "|            `+,           , </tspan>
+    <tspan dy="1.2em" x="0">           ,`| *,    *\     | |       ; _+`         /*                "\  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  *,'*,   |    |` *      _|"          /|"               ~~~~\,  ...~. ,</tspan>
+  </text>
+  <text id="Frame-3" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~ _',+,*                    *                 ",         *"    </tspan>
+    <tspan dy="1.2em" x="0">                   "  *`,`                                         *       ,  ***""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ ,` ,|^                                       , " * +     ,  </tspan>
+    <tspan dy="1.2em" x="0">             .          ,* `        _// ,_                          ;  *,.~/ ;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*    ,,*       _ /`|,|~`             *            ;`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                     ~~~;_`  *, ||| .|_+|    ,;  ,,  _,   '       ` |         _, ``</tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`~*,,        **  ,,  / ',| |`|"||||  /\_/,|_," ||_,          |       `      </tspan>
+    <tspan dy="1.2em" x="0">     , / ~,`!    \ ."^"`*     _'|   |/|   \|' ^_||/;~"+| | `        |+*      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,              *`          ^ |;   "*    `     |,_|^\  /__             *    , *,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ^;       ,      ,|*_*   ||~;*,       |            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                       ,, |       *        ``   /|^,`,`       *             </tspan>
+    <tspan dy="1.2em" x="0">^*        ~.,   *  *       ___ |~=\     ~,_           /\^_+"        ;              </tspan>
+    <tspan dy="1.2em" x="0">.          . ,       _,*"`   | "+\/'~   ""          ;/\/|         ,/`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,*^,,*`       '\,/`   "\_     __,~*"`_`| ',    ____,+,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,*            |`     ||*""`   ,* ,`|~` _/|```***`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||      ` '~.~*+ /," ~|/\/`|  "\_````                </tspan>
+    <tspan dy="1.2em" x="0">              "      _ `     |``     |       _="    || _/      `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"+;     ||     ;`\      *".~~~+*`       _|            `+,             </tspan>
+    <tspan dy="1.2em" x="0">           ,^| ',    */     |         , _/`         /*                ",  `   ,,~  </tspan>
+    <tspan dy="1.2em" x="0">           /  \, *,   |    |` \      _|"          /|'               ~~~~\   . .~. .</tspan>
+  </text>
+  <text id="Frame-4" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~ ,',*,*                    *                 *          *"    </tspan>
+    <tspan dy="1.2em" x="0">                  -" *\ ,`                                         \       _ ****""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ ,  ,|                                        , " * ~     , `</tspan>
+    <tspan dy="1.2em" x="0">             .          /` `        _// ,_                          ;  *,.~/ ;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*    ",*\       _//|,*~"                          ;`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~*~;_` _^  ||*  |_+/    ,|" _,  ,,             |         _, ``</tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`/*,,        **  \, *| *;| |`|"||_|_ | |_/,|_/ |~,           |       `      </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`*    \ .^^``*      *|   |/|  `\|  *|||||_"\/"| '      ; |++      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *"          * |;   "*          |__|^\  *__             *    , *,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ',       ,      ,|*_/   ||\**;       |            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      !;, |       *         `   /|*,//`       *             </tspan>
+    <tspan dy="1.2em" x="0">^*        ~.,   *  *       ___ |~+\     ~,__         ,/\"_+"        ,              </tspan>
+    <tspan dy="1.2em" x="0">~   "      . ,       _,*"`   | "*^/^\   '"          ;/\/|         ,/`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,*^,,*`        \_/`   "\_     __,~*"`_`| ',    _,__,=,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,"            /`     \|*""`   ,* ,`| |  /|````**`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `      `|"             ||     \`''~.~*+"/,". ||\,"|  "\_````                </tspan>
+    <tspan dy="1.2em" x="0">              "      ,_      /``     |       _/"    \|,_/      `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"+|     ||     ,`\      *`.~~~=*`       _|`           `+,             </tspan>
+    <tspan dy="1.2em" x="0">           ;^| *,    /\     | |       , _+`         /^                "\  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  \, *,   |    |` \      _|"          /|`               ~~~~\   . .~. .</tspan>
+  </text>
+  <text id="Frame-5" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~ _,+*,*`                   *                 *          *" *  </tspan>
+    <tspan dy="1.2em" x="0">                  -" `* ,`                                         \       _ ****""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ / _,|                                        , " * + `   , `</tspan>
+    <tspan dy="1.2em" x="0">             .         ,*`~         _+, ,,                          ;  *,.~/ ;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*   /.,**       ,**|,* /                          |`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~ ~;_` ,   ||* //_+/,   /^|      ,             |         _, ``</tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`/*,,        **  ,, \`*^_| |`|"||*|; |/ /;/|_,`|^\           |       `      </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`*    \ /^^``*      *|   |/|  `'=`  _||_|\"*,|| `      ; |++      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *`          | |;   "-          |,_|^\  /__       ' ,   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                           ';       ,      ,|*_/   ||~*^|       |            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      '*,,|       *        ``   /|*,//`       ~             </tspan>
+    <tspan dy="1.2em" x="0">^*     '  ~.,  -*  *       ___ |~=\     ~,_          ,,\*_+*        ,              </tspan>
+    <tspan dy="1.2em" x="0">~          . ,       _,*"`   | `*"/'\   ""          ;;`||         ,/`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**,,*`        \_/`   "\_     __,+*"`_`| ',     ,__,=,              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,*            /`     `|*""`   ,* /`| |  ||````*^`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `      `|"             ||     |`''~.~*\'/,"~~|||,*|  "\_````                </tspan>
+    <tspan dy="1.2em" x="0">              *      ,_      /`/     |       _="     |=_/`     `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            +"/;     ||     ,`       *".~~~~*`       _|`           "+,             </tspan>
+    <tspan dy="1.2em" x="0">           ;"| *,    ^*     | \       ; _="         /|                ",  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  *,`*,   |    |` *      _|"          /|"               ~~~~\   . .~. .</tspan>
+  </text>
+  <text id="Frame-6" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~,~~+*,~`            ~      ^                 *          *" *  </tspan>
+    <tspan dy="1.2em" x="0">                  -" `* ,`                                         \       _ ****""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ / _=|                                        , " * + `   , `</tspan>
+    <tspan dy="1.2em" x="0">             .         /" \         _+  ,;                          ,  *,.~/ ;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*   `.,*        /^"|_* |    _,                    ,`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~ ~;_` /,  |/" |"_+,|   /`|,                   ;         _, ``</tspan>
+    <tspan dy="1.2em" x="0">   ,  ,`/*,,        **  ,,,/ |*_| |`|"||/|| |/ |,\;; /|`\_          |       `      </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \ /^^``*      ^|   |/|    |/ *||||;|,+, \          |++      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,              *`          * |`   "*          |,_|^\, *__         ,   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                        ,  ';       ,      ,|*_/   ||\*`|      ;|            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      `\, |       *        `    /|^,`,`       *             </tspan>
+    <tspan dy="1.2em" x="0">^*     '  ~.,  -*  *       ___ \~=\     ~,_          ,,\*_+"        ,              </tspan>
+    <tspan dy="1.2em" x="0">~   '      . ,       _,*"`   |, "`/'\    "          ;;`||         ,*               </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**,,*`        \_/`   "\_     __,~*"`_`|`',     ,__,=               </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ,*            |`     `|*""`   ,* ,`|;|  ||````**`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||      `''~.~*+'/,"~~|||,*/` "\_```                 </tspan>
+    <tspan dy="1.2em" x="0">              "      _       |``     |       _="     \|_/`     `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"+;     ||     ;`\      *".~~~+*`       ,|`           `+,             </tspan>
+    <tspan dy="1.2em" x="0">           ,^| *,    /*     |         ; _+`         /*                ",  `  `,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  \, *,   |    |` *      _|"          /|"               ~~~~\   . .~. .</tspan>
+  </text>
+  <text id="Frame-7" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~,+=*_,*             ~      "                 *,         *"    </tspan>
+    <tspan dy="1.2em" x="0">                   " `* *`  ,                                      \       _ *^**""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ //,+|`                                       , " * ~ `   ,,`</tspan>
+    <tspan dy="1.2em" x="0">             .        ,/` ;         ,\  /|^                       ' ,  *,/~/^;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*   `.,*;;      ," |,*'|             *            ;`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">                    ~~*~;_\;/; ,||* |"_+,|   /|,; ,;  , ,           |         _, / </tspan>
+    <tspan dy="1.2em" x="0">   , .,`~*,,        ** ,,,*/ *|\| |`|"||*|*,;`|`|_||_||||           |       ` ,,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \ '^^``*      ^|   |/|    || *;/|/||/*\/\           ~+      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,    ~         *`          * |;   "*          |,_|^\  *__         ,   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                        ,  ^;       ,      ,|*_/   ||\*/|       *            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      ` _,|       *         `   /|*,`/`                     </tspan>
+    <tspan dy="1.2em" x="0">^*     * `~.,`  *  *      ___  ~~=\     ~,_          ,/\"_+"        _              </tspan>
+    <tspan dy="1.2em" x="0">~   '      . ,       _,*"`   | "*`/'\    "          ;;`||         _/`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**;,*`        \,=`   "\_     __,+*"`~*| ',     ___~=.              </tspan>
+    <tspan dy="1.2em" x="0"> `*   ~ .  . `*  ~"            /`     `|*""`   ,* ,`|||  ||_```*"`\/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||     |`'`~.~*+^/,"~~|||,*/` "\_``                  </tspan>
+    <tspan dy="1.2em" x="0">              "      ,       /``     |       _="     ||_/`     `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"+;     ||     ,'\      +`.~~~+*`       _|`           `+,             </tspan>
+    <tspan dy="1.2em" x="0">           ,^| *,    /\     | |       , _+`         /^                "\  `   ,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  \, *,   |    |` \      _/"          /|`               ~~~~\   . ;~. ,</tspan>
+  </text>
+  <text id="Frame-8" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~_++",~`  *                 "                 ^,         *"    </tspan>
+    <tspan dy="1.2em" x="0">                   " `* *  _                                       *       _ ****""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ * ,*/`                                     , + " * ~ `   , `</tspan>
+    <tspan dy="1.2em" x="0">             .         /` /,        ,\ _/\\                         ;  *,/~/^;~/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*   '.,    ,  _ ,"~|/``|                          |`     ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">          ,         ~~*~;_ _*| ,||` |`_+,|_; ;|,|  *  _  '      \   |         _, / </tspan>
+    <tspan dy="1.2em" x="0">   , .,`~*,,        **  ,,*/  |\| |`|"||*|`|_*/`|_/;_/|||           *       `  ,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \ '^^``*      ^|   |/|    ^| **||||_"*,*|           _+      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,              *`          ^ |;   "*          |,_|^\. ^___        |   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ^,       ,      ,|*_/   ||\*/|       *            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      `   |       *        ``   /|*,`,`                     </tspan>
+    <tspan dy="1.2em" x="0">^*       `~.,`  *  *      ___  ,~=\     ~,_           |\^_+"                       </tspan>
+    <tspan dy="1.2em" x="0">.          . ,       _,*"`   \ "",*^\    "         ,;;\/|          /`              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**,,*`        \+|`   "\_     __,~*"`/|| ',     __;+=,              </tspan>
+    <tspan dy="1.2em" x="0"> `    ~ .  . `*  ,*            |`     `|*""`   ,* ,`|||  ||_``**"`_/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||      `''~.~*+'/,"~~||\,*/` "\_``                  </tspan>
+    <tspan dy="1.2em" x="0">              *      _       |``     |       _+"    '|~_/`     `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"/;     ||     ;`\      *".~~~+*`       _|`           `\,             </tspan>
+    <tspan dy="1.2em" x="0">           ,^| ',    **     |         ; _/`         /*                ",  `   ,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  \,`*,   |    |` \      _/"          /|"               ~~~~\   . .~. ,</tspan>
+  </text>
+  <text id="Frame-9" font-family="monospace" fill="#8CFF98" visibility="hidden">
+    <tspan dy="1.2em" x="0">                 *  ~_+*_,*                     "                 ^,         *"    </tspan>
+    <tspan dy="1.2em" x="0">                   " `*,`  _/                                      *       _ ****""</tspan>
+    <tspan dy="1.2em" x="0">                  ** ~ `_/^,`            __                       , ; " * * `   , `</tspan>
+    <tspan dy="1.2em" x="0">             .         /` /         /\ ,* *                         !  *,/~/^;*/ \,</tspan>
+    <tspan dy="1.2em" x="0">                 +*   *.,       ,,_/,\** |      ,;  _               |      ;*+^*~ ,</tspan>
+    <tspan dy="1.2em" x="0">          ,         ~~*~;' ,^; _||^`|`*+,|;,  _/_|_/| ,; ,      '   |         _, ``</tspan>
+    <tspan dy="1.2em" x="0">   , .,`/*,,        **  ,,\| ^|_| |`|"||**||_/,\|/`,|* |/                   `  ,   </tspan>
+    <tspan dy="1.2em" x="0">     , | ~,`:    \ '^^``*      ^|   |/|     |`"`||/|_"+|*|           _+      ~ ,   </tspan>
+    <tspan dy="1.2em" x="0">, ~,              *`          * |;  `"*          |,_|^\  ^___        |   *    , ;,;</tspan>
+    <tspan dy="1.2em" x="0">*  |;                         ` ^;       ,      ,|*_/   ||~*/|       *            *</tspan>
+    <tspan dy="1.2em" x="0">**_  ``                      ' , |       *        ``   ||/,//`                     </tspan>
+    <tspan dy="1.2em" x="0">^*       `~.,`  *  *       __ \,~=\      ,_           |/"_+"                       </tspan>
+    <tspan dy="1.2em" x="0">.          . ,       _,*"`  *_ "",*^\   ""          ;;\^|          ,"              </tspan>
+    <tspan dy="1.2em" x="0">`      * `   _ ,**,,*`       '==|`   "\_     __,+*"`~*| ',    ___/+=+              </tspan>
+    <tspan dy="1.2em" x="0"> `    ~ .  . `*  ,"            /`     `|*""`   ,* ,`|_`  ||_`` "`__/               </tspan>
+    <tspan dy="1.2em" x="0">       `       |"             ||     |`'`~.~*+ /,'~ ||,,*|` "\_                    </tspan>
+    <tspan dy="1.2em" x="0">              *      ,       /`/     |       _="    || _/`     `*~_                </tspan>
+    <tspan dy="1.2em" x="0">            /"/;     ||     ,`       *".~~~~*`       _|            "\,             </tspan>
+    <tspan dy="1.2em" x="0">           ;^| *,    */     | \       ; _+"         /|                ",  `   ,,~' </tspan>
+    <tspan dy="1.2em" x="0">           /  *,'*,   |    |` *      _|"          /|"               ~~~~\   . .~. ,</tspan>
+  </text>
+  <style type="text/css">
+    @keyframes flash { 0%                   { visibility: visible; }
+                       10.0%  { visibility: hidden;  } }
+    #Frame-0 { animation: flash 0.4s linear infinite 0.0s;   }
+    #Frame-1 { animation: flash 0.4s linear infinite 0.04s;   }
+    #Frame-2 { animation: flash 0.4s linear infinite 0.08s;   }
+    #Frame-3 { animation: flash 0.4s linear infinite 0.12s;   }
+    #Frame-4 { animation: flash 0.4s linear infinite 0.16s;   }
+    #Frame-5 { animation: flash 0.4s linear infinite 0.2s;   }
+    #Frame-6 { animation: flash 0.4s linear infinite 0.24s;   }
+    #Frame-7 { animation: flash 0.4s linear infinite 0.28s;   }
+    #Frame-8 { animation: flash 0.4s linear infinite 0.32s;   }
+    #Frame-9 { animation: flash 0.4s linear infinite 0.36s;   }
+  </style>
+</svg>
