@@ -58,18 +58,18 @@ const LANGUAGE_MAP = {
   cmake: 'CMake',
 };
 const ICON_MAP = {
-  JavaScript: 'js', TypeScript: 'ts', Python: 'py', Java: 'java', Go: 'go',
-  C: 'c', 'C++': 'cpp', 'C#': 'cs', Rust: 'rust', Ruby: 'ruby', PHP: 'php',
-  Kotlin: 'kotlin', Swift: 'swift', Scala: 'scala', Dart: 'dart', Elixir: 'elixir',
-  Haskell: 'haskell', Shell: 'bash', PowerShell: 'powershell', HTML: 'html',
-  CSS: 'css', SCSS: 'scss', SASS: 'sass', Less: 'less',
-  R: 'r', Lua: 'lua', Perl: 'perl', TeX: 'latex',
-  Makefile: 'cmake', Vue: 'vue', Angular: 'angular', Svelte: 'svelte', React: 'react',
-  'Next.js': 'nextjs', Astro: 'astro', Solid: 'solidjs', 'Node.js': 'nodejs',
-  Express: 'express', Dockerfile: 'docker', Docker: 'docker', Gradle: 'gradle',
-  GraphQL: 'graphql', SQL: 'postgres',
-  PostgreSQL: 'postgres', MySQL: 'mysql', SQLite: 'sqlite', MongoDB: 'mongodb',
-  Redis: 'redis', Bash: 'bash', Powershell: 'powershell',
+  JavaScript: 'JavaScript', TypeScript: 'TypeScript', Python: 'Python', Java: 'Java', Go: 'GoLang',
+  C: 'C', 'C++': 'CPP', 'C#': 'CS', Rust: 'Rust', Ruby: 'Ruby', PHP: 'PHP',
+  Kotlin: 'Kotlin', Swift: 'Swift', Scala: 'Scala', Dart: 'Dart', Elixir: 'Elixir',
+  Haskell: 'Haskell', Shell: 'Bash', PowerShell: 'Powershell', HTML: 'HTML',
+  CSS: 'CSS', SCSS: 'SCSS', SASS: 'Sass', Less: 'Less',
+  R: 'R', Lua: 'Lua', Perl: 'Perl', TeX: 'Latex',
+  Makefile: 'CMake', Vue: 'VueJS', Angular: 'Angular', Svelte: 'Svelte', React: 'React',
+  'Next.js': 'NextJS', Astro: 'Astro', Solid: 'SolidJS', 'Node.js': 'NodeJS',
+  Express: 'ExpressJS', Dockerfile: 'Docker', Docker: 'Docker', Gradle: 'Gradle',
+  GraphQL: 'GraphQL', SQL: 'PostgreSQL',
+  PostgreSQL: 'PostgreSQL', MySQL: 'MySQL', SQLite: 'SQLite', MongoDB: 'MongoDB',
+  Redis: 'Redis', Bash: 'Bash', Powershell: 'Powershell',
 };
 const SVG_WIDTH = 800;
 const ICON_THEME = 'Dark'; // or 'Light'
@@ -196,7 +196,12 @@ function loadIconSvg(id) {
   const filePath = path.join(ICONS_DIR, filename);
   try {
     let svg = fs.readFileSync(filePath, 'utf8');
-    svg = svg.replace(/<svg/, '<svg width="20" height="20" style="margin:0 4px;"');
+    // Remove existing width and height to avoid duplicates
+    svg = svg.replace(/<svg([^>]*)/, (match, attrs) => {
+      let newAttrs = attrs.replace(/width\s*=\s*["'][^"']*["']/gi, '');
+      newAttrs = newAttrs.replace(/height\s*=\s*["'][^"']*["']/gi, '');
+      return `<svg${newAttrs} width="20" height="20" style="margin:0 4px;"`;
+    });
     return svg;
   } catch (error) {
     console.error(`Icon not found: ${filePath}`);
