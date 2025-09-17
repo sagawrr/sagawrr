@@ -9,7 +9,7 @@ if (!username || !token) {
 }
 
 const headers = { Authorization: `token ${token}` };
-const api = `https://api.github.com/users/${username}/repos?sort=updated&direction=desc&per_page=1`;
+const api = `https://api.github.com/user/repos?sort=updated&direction=desc&per_page=1&affiliation=owner,collaborator`;
 
 const res = await fetch(api, { headers });
 const data = await res.json();
@@ -29,21 +29,27 @@ if (!Array.isArray(data)) {
 const [repo] = data;
 
 let cardHtml = "";
+let language = "Unknown";
+let status = "Unknown";
 
 if (!repo) {
   cardHtml = `<div>❌ Could not fetch repo</div>`;
 } else {
-  const language = repo.language ?? "Unknown";
+  language = repo.language ?? "Unknown";
 
   // Dynamic status
-  let status = "Live";
-  if (repo.archived) status = "Archived";
-  else {
+  status = "Live";
+  if (repo.archived) {
+    status = "Archived";
+  } else {
     const lastPush = new Date(repo.pushed_at);
     const now = new Date();
     const diffDays = (now - lastPush) / (1000 * 60 * 60 * 24);
-    if (diffDays > 180) status = "Maintained";
-    else status = "Active";
+    if (diffDays > 180) {
+      status = "Maintained";
+    } else {
+      status = "Active";
+    }
   }
 
   if (repo.private) {
