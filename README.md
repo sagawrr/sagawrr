@@ -9,10 +9,14 @@
 
   <!-- Animated Glitch Name -->
   <img src="https://readme-typing-svg.demolab.com?font=Fira+Mono&pause=1500&color=8CFF98&center=true&vCenter=true&width=500&height=45&lines=Hi%2C+I%E2%80%99m+sagawrr;Builder%2C+Debugger%2C+Dreamer;Wake+up%2C+Neo...;The+Matrix+has+you..." alt="Glitchy intro"/>
+<br/>
+<br/>
 
   <!-- Animated Kagome -->
   <img src="assets/animated-kagome.svg" alt="Animated Kagome" style="margin:18px 0;max-width:500px;height:auto;"/>
 
+  <br/>
+  <br/>
   <br/>
 
   <!-- Dynamic Project Card Section -->
