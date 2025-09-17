@@ -8,11 +8,11 @@
   </div>
 
   <!-- Animated Glitch Name -->
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Mono&pause=1500&color=8CFF98&center=true&vCenter=true&width=500&height=45&lines=Hi%2C+I%E2%80%99m+sagawrr;Builder%2C+Debugger%2C+Dreamer;Wake+up%2C+Neo...;The+Matrix+has+you...;Roads%3F+Where+we%E2%80%99re+going%2C+we+don%E2%80%99t+need+roads." alt="Glitchy intro"/>
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Mono&pause=1500&color=8CFF98&center=true&vCenter=true&width=500&height=45&lines=Hi%2C+I%E2%80%99m+sagawrr;Builder%2C+Debugger%2C+Dreamer;Wake+up%2C+Neo...;The+Matrix+has+you..." alt="Glitchy intro"/>
 
   <!-- Subheading -->
   <h2 style="color:#7ee787;font-family:'Fira Mono',monospace;font-weight:400;font-size:1.22em;margin:18px 0 0 0;letter-spacing:.5px;">
-    Turning curiosity into code. Debugging reality since day one.
+    I see things you people wouldn’t believe
   </h2>
 
   <br/>
