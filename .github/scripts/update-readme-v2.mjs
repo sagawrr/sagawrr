@@ -10,12 +10,12 @@ if (!username) {
   process.exit(1);
 }
 // Constants for styles and HTML templates
-const TABLE_STYLE = 'border-collapse:collapse;border:1px solid #8CFF98;background:linear-gradient(135deg,#0d0f11 60%,#1c1f25 100%);font-family:\'Fira Mono\',monospace;box-shadow:0 0 18px rgba(140,255,152,.2);border-radius:8px;overflow:hidden;';
+const TABLE_STYLE = 'border-collapse:separate;border:2px solid #8CFF98;background:linear-gradient(135deg,#0d0f11 60%,#1c1f25 100%);font-family:\'Fira Mono\',monospace;box-shadow:0 0 18px rgba(140,255,152,.2);border-radius:8px;overflow:hidden;max-width:100%;overflow-x:auto;border-spacing:1px;';
 const HEADER_STYLE = 'background:linear-gradient(90deg,#8CFF98 0%,#7ee787 100%);padding:8px 12px;text-align:center;font-weight:bold;color:#0d0f11;text-shadow:0 1px 2px rgba(0,0,0,0.3);';
 const SUBHEADER_STYLE = 'background:rgba(28,31,37,0.8);';
-const CELL_STYLE = 'padding:4px 20px;border:1px solid #8CFF98;';
+const CELL_STYLE = 'padding:6px 12px;border:1px solid #8CFF98;text-align:center;';
 const BOLD_GREEN = 'color:#8CFF98;font-weight:bold;';
-const BOLD_ORANGE = 'color:#ffb86c;font-weight:bold;';
+const BOLD_ORANGE = 'color:#ffcc80;font-weight:bold;'; // Updated for better contrast
 const CENTER = 'text-align:center;';
 const EVEN_ROW_BG = 'rgba(13,15,17,0.6)';
 const ODD_ROW_BG = 'rgba(28,31,37,0.8)';
@@ -191,8 +191,8 @@ function buildStackBadgesHtml(languages) {
   if (badges.length === 0) {
     return '';
   }
-  return `<div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-start;max-width:220px;margin:0 auto;">${badges.map(lang =>
-    `<a href="#" style="display:block;"><img src="https://img.shields.io/badge/${encodeURIComponent(lang)}-${getColor(lang)}?logo=${encodeURIComponent(lang.toLowerCase())}&logoColor=fff" alt="${encodeURIComponent(lang)} badge" title="${encodeURIComponent(lang)}" style="height:14px; margin-bottom: 2px;"/></a>`
+  return `<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;">${badges.map(lang =>
+    `<a href="#" style="display:block;"><img src="https://img.shields.io/badge/${encodeURIComponent(lang)}-${getColor(lang)}?logo=${encodeURIComponent(lang.toLowerCase())}&logoColor=fff" alt="${encodeURIComponent(lang)} badge" title="${encodeURIComponent(lang)}" style="height:16px;vertical-align:middle;"/></a>`
   ).join('')}</div>`;
 }
 // Get color for language badge
@@ -317,23 +317,23 @@ async function generateTableRow(index, repo, options) {
   const medal = medalIcons[rank] || '🏅';
   if (rank && total) {
     if (total === 1) {
-      rankHtml = '<span style="font-weight:800;color:#8CFF98;">🏆 Solo</span>';
+      rankHtml = '<span style="font-weight:800;color:#ffcc80;">🏆 Solo</span>'; // Updated for better contrast
     } else {
-      rankHtml = `<span style="margin-right:6px;">${medal}</span><span style="font-weight:800;color:#ffb86c;">${rank}/${total}</span>`;
+      rankHtml = `<span style="margin-right:6px;">${medal}</span><span style="font-weight:800;color:#ffcc80;">${rank}/${total}</span>`; // Updated for better contrast
     }
   } else if (total) {
     rankHtml = `<span style="opacity:.85;color:#8CFF98;">${total} active</span>`;
   }
   const projectName = repo.private
     ? '🔒 Classified'
-    : `<a href="${repo.html_url}" style="color:#ffb86c;text-decoration:none;transition:color 0.3s ease;" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`;
+    : `<a href="${repo.html_url}" style="color:#ffcc80;text-decoration:none;transition:color 0.3s ease;" onmouseover="this.style.color=\'#ffcc80\'" onmouseout="this.style.color=\'#ffcc80\'" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`; // Simplified hover effect for Markdown
   const rowBg = index % 2 === 0 ? EVEN_ROW_BG : ODD_ROW_BG;
   return `
   <tr style="background:${rowBg};">
-    <td style="${CELL_STYLE}${BOLD_ORANGE}${CENTER}">${index + 1}</td>
+    <td style="${CELL_STYLE}${BOLD_ORANGE}">${index + 1}</td>
     <td style="${CELL_STYLE}">${projectName}</td>
     <td style="${CELL_STYLE}${CENTER}">${stackBadgesHtml}</td>
-    <td style="${CELL_STYLE}${BOLD_GREEN}${CENTER}">${changesHtml}</td>
+    <td style="${CELL_STYLE}${BOLD_GREEN}">${changesHtml}</td>
     <td style="${CELL_STYLE}${CENTER}">${rankHtml}</td>
   </tr>`;
 }
@@ -348,7 +348,7 @@ async function generateCardHtml(recentProjects, options) {
     </td>
   </tr>
   <tr>
-    <td colspan="5" style="${CELL_STYLE}${CENTER}color:#ffb86c;font-style:italic;">
+    <td colspan="5" style="${CELL_STYLE}${CENTER}color:#ffcc80;font-style:italic;">
       ${NO_PROJECTS_MESSAGE.replace('${WINDOW_DAYS}', WINDOW_DAYS)}
     </td>
   </tr>
@@ -363,10 +363,10 @@ async function generateCardHtml(recentProjects, options) {
     </td>
   </tr>
   <tr style="${SUBHEADER_STYLE}">
-    <td style="${CELL_STYLE}${BOLD_GREEN}${CENTER}">SN</td>
+    <td style="${CELL_STYLE}${BOLD_GREEN}">SN</td>
     <td style="${CELL_STYLE}${BOLD_GREEN}">Project</td>
     <td style="${CELL_STYLE}${BOLD_GREEN}${CENTER}">Authored Stack</td>
-    <td style="${CELL_STYLE}${BOLD_GREEN}${CENTER}">Changes</td>
+    <td style="${CELL_STYLE}${BOLD_GREEN}">Changes</td>
     <td style="${CELL_STYLE}${BOLD_GREEN}${CENTER}">Contributor Rank</td>
   </tr>
   ${tableRows.join('')}
