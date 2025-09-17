@@ -21,8 +21,21 @@
 
   <!-- Dynamic Project Card Section -->
   <!-- PROJECT_CARD_START -->
-  <div>Loading latest project...</div>
-  <!-- PROJECT_CARD_END -->
+
+<div style="background:linear-gradient(120deg,#222b36 70%,#141618 100%);border-radius:16px;box-shadow:0 0 22px rgba(124,255,152,.2);padding:28px 38px;max-width:350px;display:inline-block;position:relative;">
+  <div style="font-size:1.1em;margin-bottom:14px;color:#8cff98;font-family:'Fira Mono',monospace;">
+    🚀 Last Project:
+    <a href="https://github.com/sagawrr/sagawrr" style="color:#ffb86c;font-weight:700;text-decoration:none;">sagawrr</a>
+  </div>
+  <div style="color:#b7bac7;font-family:'Fira Mono',monospace;font-size:.95em;">
+    Stack: <span style="color:#7ee787;font-weight:600">Unknown</span><br>
+    Status: <span style="color:#8cff98;">Active</span>
+  </div>
+  <div style="margin-top:20px;">
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Mono&duration=1100&pause=500&color=8CFF98&center=true&vCenter=true&width=270&lines=DEPLOYED;PRODUCTION;MAINTAINED" />
+  </div>
+</div>
+<!-- PROJECT_CARD_END -->
 
   <br/><br/><br/>
 
