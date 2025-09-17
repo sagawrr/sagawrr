@@ -386,7 +386,7 @@ async function generateTableHtml(recentProjects, options) {
 // Generate SVG content
 function generateSvg(tableHtml, recentProjects) {
   const rowCount = recentProjects.length === 0 ? 2 : recentProjects.length + 2;
-  const svgHeight = 100 + 60 * rowCount; // Increased height to prevent cropping
+  const svgHeight = 60 + 40 * rowCount; // Reduced height to minimize gap
 
   return `<svg fill="none" viewBox="0 0 ${SVG_WIDTH} ${svgHeight}" width="${SVG_WIDTH}" height="${svgHeight}" xmlns="http://www.w3.org/2000/svg">
   <foreignObject width="100%" height="100%">
