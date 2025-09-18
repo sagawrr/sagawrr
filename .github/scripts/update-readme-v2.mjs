@@ -203,9 +203,9 @@ function buildStackBadgesHtml(languages) {
   if (badges.length === 0) {
     return '';
   }
-  return `<div style="display:flex;flex-wrap:wrap;justify-content:center;gap:8px;">${badges.map(lang =>
+  return `<div style="display:flex;flex-wrap:wrap;justify-content:center;">${badges.map(lang =>
     `<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/${encodeURIComponent(lang)}-${getColor(lang)}?logo=${encodeURIComponent(lang.toLowerCase())}&logoColor=fff" alt="${encodeURIComponent(lang)} badge" title="${encodeURIComponent(lang)}" style="height:20px;"/></a>`
-  ).join('')}</div>`;
+  ).join('&nbsp;&nbsp;&nbsp;')}</div>`;
 }
 
 // Get color for language badge
