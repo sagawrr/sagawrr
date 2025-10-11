@@ -2,7 +2,7 @@
 
   <div style="margin-bottom:20px;display:flex;justify-content:center;">
     <span style="color:#8CFF98;background:rgba(140,255,152,0.06);border:1px solid #8CFF98;padding:6px 12px;border-radius:12px;font-size:12px;box-shadow:0 0 10px rgba(140,255,152,.18);">
-      Last updated: <!-- LAST_UPDATED -->Sat, 11 Oct 2025 12:24:38 GMT<!-- /LAST_UPDATED -->
+      Last updated: <!-- LAST_UPDATED -->Sat, 11 Oct 2025 18:16:37 GMT<!-- /LAST_UPDATED -->
     </span>
   </div>
 
@@ -37,19 +37,26 @@
   <tr style="background:rgba(13,15,17,0.6);">
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">1</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=fff" alt="JavaScript badge" title="JavaScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a></div></td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.thamelthreads.com/pr?add=7867&del=630&commits=3" alt="Commit stats badge" style="height:20px;"/></a></td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="font-weight:800;color:#ffcc80;">🏆 Solo</span></td>
+  </tr>
+  <tr style="background:rgba(28,31,37,0.8);">
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">2</td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=fff" alt="Python badge" title="Python" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Bash-4EAA25?logo=bash&logoColor=fff" alt="Bash badge" title="Bash" style="height:20px;"/></a></div></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.thamelthreads.com/pr?add=888&del=774&commits=7" alt="Commit stats badge" style="height:20px;"/></a></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="margin-right:6px;">🏅</span><span style="font-weight:800;color:#ffcc80;">4/4</span></td>
   </tr>
-  <tr style="background:rgba(28,31,37,0.8);">
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">2</td>
+  <tr style="background:rgba(13,15,17,0.6);">
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">3</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/XML-767C52?logo=xml&logoColor=fff" alt="XML badge" title="XML" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Gradle-8CFF98?logo=gradle&logoColor=fff" alt="Gradle badge" title="Gradle" style="height:20px;"/></a></div></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.thamelthreads.com/pr?add=648&del=642&commits=12" alt="Commit stats badge" style="height:20px;"/></a></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="font-weight:800;color:#ffcc80;">🏆 Solo</span></td>
   </tr>
-  <tr style="background:rgba(13,15,17,0.6);">
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">3</td>
+  <tr style="background:rgba(28,31,37,0.8);">
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">4</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.thamelthreads.com/pr?add=1137&del=1412&commits=4" alt="Commit stats badge" style="height:20px;"/></a></td>
