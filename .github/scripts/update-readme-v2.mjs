@@ -85,14 +85,55 @@ const LANGUAGE_MAP = {
   zig: 'Zig',
 };
 
-// Helper: Fetch JSON with retries and 202 handling
+function buildApiOptions() {
+  const headers = {
+    Accept: 'application/vnd.github+json',
+    'X-GitHub-Api-Version': '2022-11-28',
+    'User-Agent': 'sagawrr-readme-updater',
+  };
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+  return { headers };
+}
+
+// Helper: Fetch JSON with retries, auth fail-closed, and rate-limit handling
 async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
   for (let attempt = 0; attempt < retries; attempt++) {
-    const res = await fetch(url, options);
+    let res;
+    try {
+      res = await fetch(url, options);
+    } catch (err) {
+      if (attempt < retries - 1) {
+        await new Promise(r => setTimeout(r, delayMs));
+        continue;
+      }
+      throw new Error(`Network error fetching ${url}: ${err.message}`);
+    }
+
     if (res.status === 202) {
       await new Promise(r => setTimeout(r, delayMs));
       continue;
     }
+
+    if (res.status === 401 || res.status === 403) {
+      console.error(`GitHub API auth error ${res.status} for ${url}`);
+      throw new Error(`GitHub API auth error ${res.status} for ${url}`);
+    }
+
+    if (res.status === 429) {
+      if (attempt < retries - 1) {
+        const retryAfter = Number(res.headers.get('Retry-After'));
+        const waitMs = Number.isFinite(retryAfter) && retryAfter > 0
+          ? retryAfter * 1000
+          : Math.max(delayMs, 10000);
+        console.error(`GitHub API rate limited (429) for ${url}; waiting ${waitMs}ms`);
+        await new Promise(r => setTimeout(r, waitMs));
+        continue;
+      }
+      throw new Error(`GitHub API rate limited (429) for ${url} after ${retries} attempts`);
+    }
+
     if (res.ok) {
       try {
         return await res.json();
@@ -100,6 +141,15 @@ async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
         return null;
       }
     }
+
+    if (res.status >= 500) {
+      if (attempt < retries - 1) {
+        await new Promise(r => setTimeout(r, delayMs));
+        continue;
+      }
+      throw new Error(`GitHub API server error ${res.status} for ${url} after ${retries} attempts`);
+    }
+
     if (attempt < retries - 1) await new Promise(r => setTimeout(r, delayMs));
   }
   return null;
@@ -107,8 +157,7 @@ async function fetchJson(url, options = {}, retries = 3, delayMs = 1000) {
 
 // Fetch repositories
 async function fetchRepositories() {
-  const headers = token ? { Authorization: `token ${token}` } : {};
-  const options = { headers };
+  const options = buildApiOptions();
   if (token) {
     console.log('🔐 Attempting authenticated API call...');
     const allRepos = [];
@@ -294,7 +343,7 @@ async function getChanges(owner, repo, options) {
     }
   }
   if (commitCount === 0 && additions === 0 && deletions === 0) return '—';
-  const badgeUrl = `https://insigno.thamelthreads.com/pr?add=${additions}&del=${deletions}&commits=${commitCount}`;
+  const badgeUrl = `https://insigno.saagawrr.com/pr?add=${additions}&del=${deletions}&commits=${commitCount}`;
   return `<a href="#" style="display:inline-block;"><img src="${badgeUrl}" alt="Commit stats badge" style="height:20px;"/></a>`;
 }
 
@@ -316,9 +365,27 @@ async function getContributorRank(owner, repo, options) {
   return { rank: selfIdx === -1 ? null : selfIdx + 1, total };
 }
 
-// Escape HTML
+// Escape HTML (ampersand first; null/non-string → '')
 function escapeHtml(str) {
-  return (str || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  if (str == null) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+// Only normal HTTPS github.com owner/repo URLs (no query, fragment, or credentials)
+const SAFE_GITHUB_REPO_URL = /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/;
+
+function formatProjectName(repo) {
+  if (repo.private) return '🔒 Classified';
+  const name = escapeHtml(repo.name);
+  if (!SAFE_GITHUB_REPO_URL.test(repo.html_url)) return name;
+  const href = escapeHtml(repo.html_url);
+  const title = escapeHtml(repo.description) || 'No description available';
+  return `<a href="${href}" style="color:#ffcc80;text-decoration:none;transition:color 0.3s ease;" title="${title}">${name}</a>`;
 }
 
 // Generate table row
@@ -342,9 +409,7 @@ async function generateTableRow(index, repo, options) {
   } else if (total) {
     rankHtml = `<span style="opacity:.85;color:#8CFF98;">${total} active</span>`;
   }
-  const projectName = repo.private
-    ? '🔒 Classified'
-    : `<a href="${repo.html_url}" style="color:#ffcc80;text-decoration:none;transition:color 0.3s ease;" onmouseover="this.style.color='#ffcc80'" onmouseout="this.style.color='#ffcc80'" title="${escapeHtml(repo.description) || 'No description available'}">${repo.name}</a>`;
+  const projectName = formatProjectName(repo);
   const rowBg = index % 2 === 0 ? EVEN_ROW_BG : ODD_ROW_BG;
   return `
   <tr style="background:${rowBg};">
@@ -373,7 +438,10 @@ async function generateCardHtml(recentProjects, options) {
   </tr>
 </table>`;
   }
-  const tableRows = await Promise.all(recentProjects.map((repo, i) => generateTableRow(i, repo, options)));
+  const tableRows = [];
+  for (let i = 0; i < recentProjects.length; i++) {
+    tableRows.push(await generateTableRow(i, recentProjects[i], options));
+  }
   return `
 <table align="center" style="${TABLE_STYLE}">
   <tr>
@@ -399,7 +467,7 @@ async function generateCardHtml(recentProjects, options) {
     console.error('❌ Could not fetch repositories');
     process.exit(1);
   }
-  const options = token ? { headers: { Authorization: `token ${token}` } } : {};
+  const options = buildApiOptions();
   const recentProjects = await filterRecentProjects(repos, options);
   const cardHtml = await generateCardHtml(recentProjects, options);
   try {
