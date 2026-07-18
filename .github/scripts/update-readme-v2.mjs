@@ -343,7 +343,7 @@ async function getChanges(owner, repo, options) {
     }
   }
   if (commitCount === 0 && additions === 0 && deletions === 0) return '—';
-  const badgeUrl = `https://insigno.saagawrr.com/pr?add=${additions}&del=${deletions}&commits=${commitCount}`;
+  const badgeUrl = `https://insigno.sagawrr.com/b/pr?add=${additions}&del=${deletions}&commits=${commitCount}`;
   return `<a href="#" style="display:inline-block;"><img src="${badgeUrl}" alt="Commit stats badge" style="height:20px;"/></a>`;
 }
 
