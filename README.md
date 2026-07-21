@@ -2,7 +2,7 @@
 
   <div style="margin-bottom:20px;display:flex;justify-content:center;">
     <span style="color:#8CFF98;background:rgba(140,255,152,0.06);border:1px solid #8CFF98;padding:6px 12px;border-radius:12px;font-size:12px;box-shadow:0 0 10px rgba(140,255,152,.18);">
-      Last updated: <!-- LAST_UPDATED -->Mon, 20 Jul 2026 13:43:58 GMT<!-- /LAST_UPDATED -->
+      Last updated: <!-- LAST_UPDATED -->Tue, 21 Jul 2026 01:19:15 GMT<!-- /LAST_UPDATED -->
     </span>
   </div>
 
@@ -39,7 +39,7 @@
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/C%23-239120?logo=c%23&logoColor=fff" alt="C%23 badge" title="C%23" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/SCSS-8CFF98?logo=scss&logoColor=fff" alt="SCSS badge" title="SCSS" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/SQL-8CFF98?logo=sql&logoColor=fff" alt="SQL badge" title="SQL" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/PowerShell-8CFF98?logo=powershell&logoColor=fff" alt="PowerShell badge" title="PowerShell" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/YAML-CB171E?logo=yaml&logoColor=fff" alt="YAML badge" title="YAML" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Bash-4EAA25?logo=bash&logoColor=fff" alt="Bash badge" title="Bash" style="height:20px;"/></a></div></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.sagawrr.com/b/pr?add=6701&del=4495&commits=3" alt="Commit stats badge" style="height:20px;"/></a></td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="margin-right:6px;">🏅</span><span style="font-weight:800;color:#ffcc80;">5/6</span></td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="margin-right:6px;">🏅</span><span style="font-weight:800;color:#ffcc80;">5/5</span></td>
   </tr>
   <tr style="background:rgba(28,31,37,0.8);">
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">2</td>
