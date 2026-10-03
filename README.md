@@ -2,7 +2,7 @@
 
   <div style="margin-bottom:20px;display:flex;justify-content:center;">
     <span style="color:#8CFF98;background:rgba(140,255,152,0.06);border:1px solid #8CFF98;padding:6px 12px;border-radius:12px;font-size:12px;box-shadow:0 0 10px rgba(140,255,152,.18);">
-      Last updated: <!-- LAST_UPDATED -->Sat, 03 Oct 2026 02:32:18 GMT<!-- /LAST_UPDATED -->
+      Last updated: <!-- LAST_UPDATED -->Sat, 03 Oct 2026 15:18:23 GMT<!-- /LAST_UPDATED -->
     </span>
   </div>
 
@@ -37,8 +37,8 @@
   <tr style="background:rgba(13,15,17,0.6);">
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">1</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Gradle-8CFF98?logo=gradle&logoColor=fff" alt="Gradle badge" title="Gradle" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a></div></td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.sagawrr.com/b/pr?add=298&del=520&commits=7" alt="Commit stats badge" style="height:20px;"/></a></td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/Gradle-8CFF98?logo=gradle&logoColor=fff" alt="Gradle badge" title="Gradle" style="height:20px;"/></a></div></td>
+    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.sagawrr.com/b/pr?add=2257&del=1662&commits=11" alt="Commit stats badge" style="height:20px;"/></a></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="margin-right:6px;">🥇</span><span style="font-weight:800;color:#ffcc80;">1/3</span></td>
   </tr>
   <tr style="background:rgba(28,31,37,0.8);">
@@ -46,13 +46,6 @@
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=fff" alt="JavaScript badge" title="JavaScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=fff" alt="TypeScript badge" title="TypeScript" style="height:20px;"/></a>&nbsp;&nbsp;&nbsp;<a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/JSON-000?logo=json&logoColor=fff" alt="JSON badge" title="JSON" style="height:20px;"/></a></div></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.sagawrr.com/b/pr?add=509&del=135&commits=1" alt="Commit stats badge" style="height:20px;"/></a></td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="font-weight:800;color:#ffcc80;">🏆 Solo</span></td>
-  </tr>
-  <tr style="background:rgba(13,15,17,0.6);">
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#ffcc80;font-weight:bold;">3</td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;">🔒 Classified</td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><div style="display:flex;flex-wrap:wrap;justify-content:center;"><a href="#" style="display:inline-block;"><img src="https://img.shields.io/badge/HCL-8CFF98?logo=hcl&logoColor=fff" alt="HCL badge" title="HCL" style="height:20px;"/></a></div></td>
-    <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;color:#8CFF98;font-weight:bold;"><a href="#" style="display:inline-block;"><img src="https://insigno.sagawrr.com/b/pr?add=54&del=0&commits=1" alt="Commit stats badge" style="height:20px;"/></a></td>
     <td style="padding:6px 12px;border:1px solid #8CFF98;text-align:center;text-align:center;"><span style="font-weight:800;color:#ffcc80;">🏆 Solo</span></td>
   </tr>
 </table>
