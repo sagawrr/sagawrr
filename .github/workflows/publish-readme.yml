@@ -9,6 +9,7 @@ on:
     paths:
       - .github/scripts/**
       - .github/workflows/publish-readme.yml
+      - assets/kagome.json
 
 concurrency:
   group: publish-readme
@@ -22,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
-      contents: write # commit README.md
+      contents: write # commit README.md + generated SVGs
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -32,10 +33,11 @@ jobs:
         with:
           bun-version: 1.4.4
 
-      - name: Render project card
+      - name: Render README, terminal and arcade
         run: bun .github/scripts/update-readme.mjs
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_API_KEY_7X9K2M }} # read-only PAT (private repo metadata)
+          # Read-only PAT: private repo metadata + private contribution counts
+          GITHUB_TOKEN: ${{ secrets.GH_API_KEY_7X9K2M }}
           PROFILE_USER: ${{ github.repository_owner }}
 
       - name: Commit changes
@@ -43,38 +45,11 @@ jobs:
           PUSH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
-          git diff --quiet README.md && { echo "No changes"; exit 0; }
+          git add README.md assets/terminal.svg assets/arcade.svg
+          git diff --cached --quiet && { echo "No changes"; exit 0; }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "🔮 MATRIX UPDATE: Neural network synchronized with latest project data" README.md
+          git commit -m "🔮 MATRIX UPDATE: Neural network synchronized with latest project data"
           remote="https://x-access-token:${PUSH_TOKEN}@github.com/${REPO}.git"
           git pull --rebase "$remote" main
           git push "$remote" HEAD:main
-
-  snake:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    permissions:
-      contents: write # force-push the output branch
-    steps:
-      - uses: Platane/snk/svg-only@d8f6715049803e982ee5ff501b6b9b7d5deeb09b # v3.5.0
-        with:
-          github_user_name: ${{ github.repository_owner }}
-          # PAT so private contributions are counted (the default token only sees public ones)
-          github_token: ${{ secrets.GH_API_KEY_7X9K2M }}
-          outputs: |
-            dist/snake.svg?color_snake=#2da44e&color_dots=#ebedf0,#aceebb,#4ac26b,#2da44e,#116329
-            dist/snake-dark.svg?palette=github-dark&color_snake=#8CFF98&color_dots=#161b22,#0e4429,#006d32,#26a641,#8CFF98
-
-      - name: Publish to output branch
-        working-directory: dist
-        env:
-          PUSH_TOKEN: ${{ github.token }}
-          REPO: ${{ github.repository }}
-        run: |
-          git init -q -b output
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add snake.svg snake-dark.svg
-          git commit -q -m "🐍 snake regenerated"
-          git push -q --force "https://x-access-token:${PUSH_TOKEN}@github.com/${REPO}.git" output

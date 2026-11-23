@@ -1,6 +1,10 @@
-// Renders the "recent projects" table and the combined stack row into README.md.
+// Renders README.md's dynamic blocks (stack row, project table, sync badge) and regenerates
+// assets/terminal.svg + assets/arcade.svg from live GitHub data.
 // Runs on Bun (or Node ≥ 20). Env: PROFILE_USER (required), GITHUB_TOKEN (read-only PAT; optional).
 import fs from 'node:fs';
+import { renderArcade } from './lib/arcade.mjs';
+import { renderTerminal } from './lib/terminal.mjs';
+import { esc as escapeHtml, hash } from './lib/util.mjs';
 
 const username = process.env.PROFILE_USER ?? '';
 const token = process.env.GITHUB_TOKEN;
@@ -81,13 +85,13 @@ const SKILL_ICON = {
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-async function fetchJson(path, retries = 3) {
+async function fetchJson(path, { method = 'GET', body, retries = 3 } = {}) {
   const url = new URL(path, API);
   if (url.origin !== API) throw new Error(`Refusing to call non-GitHub URL: ${url}`);
   for (let attempt = 1; ; attempt++) {
     let res;
     try {
-      res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
+      res = await fetch(url, { method, body: body && JSON.stringify(body), headers: HEADERS, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
     } catch (err) {
       if (attempt >= retries) throw new Error(`Network error for ${url.pathname}: ${err.message}`);
       await sleep(1000 * attempt);
@@ -119,7 +123,9 @@ async function fetchRepositories() {
     if (batch.length < 100 || new Date(batch.at(-1).pushed_at) < windowStart) break;
   }
   // A commit inside the window must have been pushed after the window opened.
-  return repos.filter(r => !r.fork && !r.archived && new Date(r.pushed_at) >= windowStart);
+  const profileRepo = `${me}/${me}`; // this README's own repo isn't a project
+  return repos.filter(r => !r.fork && !r.archived && r.full_name.toLowerCase() !== profileRepo
+    && new Date(r.pushed_at) >= windowStart);
 }
 
 function inferLanguage(filename) {
@@ -164,29 +170,67 @@ async function getContributorRank(repo) {
   return { rank: idx === -1 ? null : idx + 1, total: sorted.length };
 }
 
+// Last year's contribution calendar (needs a token; private contributions count when the token is yours).
+async function fetchCalendar() {
+  if (!token) return null;
+  const query = 'query($login:String!){user(login:$login){contributionsCollection{contributionCalendar{weeks{contributionDays{date weekday contributionCount contributionLevel}}}}}}';
+  const res = await fetchJson('/graphql', { method: 'POST', body: { query, variables: { login: username } } });
+  return res?.data?.user?.contributionsCollection?.contributionCalendar?.weeks ?? null;
+}
+
+// Commits per day over the window, oldest → today.
+function dailyActivity(commits) {
+  const days = Array(WINDOW_DAYS).fill(0);
+  const now = Date.now();
+  for (const c of commits) {
+    const age = Math.floor((now - new Date(c.commit?.author?.date ?? now)) / 864e5);
+    if (age >= 0 && age < WINDOW_DAYS) days[WINDOW_DAYS - 1 - age]++;
+  }
+  return days;
+}
+
 async function buildRow(repo) {
   const authored = await fetchJson(
     `/repos/${repo.full_name}/commits?author=${encodeURIComponent(username)}&since=${since}&per_page=100`,
   );
   if (!Array.isArray(authored) || authored.length === 0) return null;
   const [languages, rank] = await Promise.all([getAuthoredLanguages(repo, authored), getContributorRank(repo)]);
-  return { repo, languages, rank, lastCommit: authored[0].commit?.committer?.date ?? repo.pushed_at };
+  return {
+    repo, languages, rank,
+    commits: authored.length,
+    activity: dailyActivity(authored),
+    lastCommit: authored[0].commit?.committer?.date ?? repo.pushed_at,
+  };
 }
 
 // ── rendering ───────────────────────────────────────────────────────────────
 
-const escapeHtml = str => String(str ?? '')
-  .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
-  .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const ADJECTIVES = ['silent', 'neon', 'quantum', 'phantom', 'crimson', 'hollow', 'binary', 'lunar', 'rogue', 'velvet',
+  'static', 'cobalt', 'feral', 'glass', 'iron', 'midnight', 'solar', 'echo', 'zero', 'arctic', 'violet', 'rapid'];
+const NOUNS = ['falcon', 'cipher', 'lotus', 'kernel', 'nebula', 'orbit', 'raven', 'circuit', 'comet', 'monolith',
+  'vector', 'prism', 'ember', 'harbor', 'signal', 'quartz', 'atlas', 'drift', 'spire', 'tundra', 'relay', 'golem'];
+
+// Stable, non-reversible codename for a private repo.
+function codename(repo) {
+  const h = hash(`codename:${repo.id}`);
+  return `${ADJECTIVES[h % ADJECTIVES.length]}-${NOUNS[(h >>> 8) % NOUNS.length]}`;
+}
 
 const SAFE_GITHUB_REPO_URL = /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-9_.-]+\/?$/;
 
 function formatProject(repo) {
-  if (repo.private) return '🔒 <code>classified</code>';
+  if (repo.private) return `🔒 <code>${codename(repo)}</code><br/><sub>classified</sub>`;
   const name = `<b>${escapeHtml(repo.name)}</b>`;
-  if (!SAFE_GITHUB_REPO_URL.test(repo.html_url)) return name;
-  const title = escapeHtml(repo.description || 'No description available');
-  return `<a href="${escapeHtml(repo.html_url)}" title="${title}">${name}</a>`;
+  const desc = repo.description ? `<br/><sub>${escapeHtml(repo.description.slice(0, 60))}${repo.description.length > 60 ? '…' : ''}</sub>` : '';
+  if (!SAFE_GITHUB_REPO_URL.test(repo.html_url)) return `🌐 ${name}${desc}`;
+  return `🌐 <a href="${escapeHtml(repo.html_url)}">${name}</a>${desc}`;
+}
+
+const BARS = '▁▂▃▄▅▆▇█';
+function formatActivity(activity, commits) {
+  const max = Math.max(...activity, 1);
+  const spark = activity.map(n => (n === 0 ? '·' : BARS[Math.min(7, Math.ceil((n / max) * 7))])).join('');
+  return `<code>${spark}</code><br/><sub>${commits >= 100 ? '100+' : commits} commit${commits === 1 ? '' : 's'}</sub>`;
 }
 
 function badge(lang) {
@@ -202,17 +246,26 @@ function formatRank({ rank, total }) {
   if (!total) return '—';
   if (!rank) return `<sub>${total} active</sub>`;
   if (total === 1) return '🏆 <b>Solo</b>';
-  return `${['', '🥇', '🥈', '🥉'][rank] || '🏅'} <b>${rank}</b>/${total}`;
+  return `${['', '🥇', '🥈', '🥉'][rank] || '🏅'} <b>#${rank}</b><br/><sub>of ${total}</sub>`;
+}
+
+const DATA_FORMATS = new Set(['JSON', 'YAML', 'XML', 'TOML', 'MDX']);
+// Drop data formats unless they're all a project touched.
+function codeLanguages(languages) {
+  const names = languages.map(([lang]) => lang);
+  const code = names.filter(lang => !DATA_FORMATS.has(lang));
+  return code.length ? code : names;
 }
 
 function renderCard(rows) {
   const title = `<h3>⚡ Active Projects — Past ${WINDOW_DAYS} Days</h3>`;
   if (rows.length === 0) return `${title}\n<p><i>All quiet — no commits in the past ${WINDOW_DAYS} days.</i></p>`;
-  const body = rows.map(({ repo, languages, rank }, i) => `
+  const body = rows.map(({ repo, languages, rank, activity, commits }, i) => `
     <tr>
       <td align="center"><code>${String(i + 1).padStart(2, '0')}</code></td>
       <td>${formatProject(repo)}</td>
-      <td>${languages.slice(0, BADGES_PER_ROW).map(([lang]) => badge(lang)).join(' ')}</td>
+      <td>${codeLanguages(languages).slice(0, BADGES_PER_ROW).map(lang => badge(lang)).join(' ')}</td>
+      <td align="center">${formatActivity(activity, commits)}</td>
       <td align="center">${formatRank(rank)}</td>
     </tr>`).join('');
   return `${title}
@@ -222,6 +275,7 @@ function renderCard(rows) {
       <th>#</th>
       <th>Project</th>
       <th>Stack</th>
+      <th>Activity <sub>(7d)</sub></th>
       <th>Rank</th>
     </tr>
   </thead>
@@ -231,14 +285,16 @@ function renderCard(rows) {
 }
 
 // Union of every project's stack, weighted by each language's share within its project.
-function renderStack(rows) {
+function combinedStack(rows) {
   const score = new Map();
   for (const { languages } of rows) {
-    for (const [lang, share] of languages) {
-      if (SKILL_ICON[lang]) score.set(lang, (score.get(lang) ?? 0) + share);
-    }
+    for (const [lang, share] of languages) score.set(lang, (score.get(lang) ?? 0) + share);
   }
-  const langs = [...score].sort((a, b) => b[1] - a[1]).map(([lang]) => lang);
+  return [...score].sort((a, b) => b[1] - a[1]).map(([lang]) => lang);
+}
+
+function renderStack(stack) {
+  const langs = stack.filter(lang => SKILL_ICON[lang]);
   if (langs.length === 0) return '';
   const ids = langs.map(lang => SKILL_ICON[lang]);
   const perline = Math.min(ids.length, 10);
@@ -265,9 +321,27 @@ for (let i = 0; i < repos.length && rows.length < MAX_PROJECTS; i += 4) {
 rows.splice(MAX_PROJECTS);
 rows.sort((a, b) => new Date(b.lastCommit) - new Date(a.lastCommit));
 
-const stamp = new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
+const stack = combinedStack(rows);
+const now = new Date().toISOString();
+
+const terminal = renderTerminal({
+  user: username,
+  projects: rows.map(({ repo }) => ({ codename: repo.private ? codename(repo) : repo.name })),
+  stack: stack.filter(lang => !DATA_FORMATS.has(lang)),
+  commits: rows.reduce((n, r) => n + r.commits, 0),
+  date: now.slice(0, 10),
+  kagome: JSON.parse(fs.readFileSync('assets/kagome.json', 'utf8')),
+});
+fs.writeFileSync('assets/terminal.svg', terminal);
+
+const calendar = await fetchCalendar();
+const arcade = calendar && renderArcade({ weeks: calendar, user: username });
+if (arcade) fs.writeFileSync('assets/arcade.svg', arcade);
+else console.warn('⚠️  No contribution calendar (token missing?); keeping the previous arcade.svg');
+
+const stamp = now.replace('T', ' ').slice(0, 16) + ' UTC';
 let readme = fs.readFileSync(README, 'utf8');
-readme = replaceBlock(readme, 'STACK', renderStack(rows));
+readme = replaceBlock(readme, 'STACK', renderStack(stack));
 readme = replaceBlock(readme, 'PROJECT_CARD', renderCard(rows));
 readme = replaceBlock(readme, 'LAST_UPDATED',
   `<img src="https://img.shields.io/badge/last_sync-${encodeURIComponent(stamp.replace(/-/g, '--'))}-0d1117?style=flat-square&labelColor=8CFF98&color=0d1117" alt="Last sync: ${stamp}"/>`);
