@@ -33,7 +33,7 @@ jobs:
         with:
           bun-version: 1.4.4
 
-      - name: Render README, terminal and arcade
+      - name: Render README and SVG cards
         run: bun .github/scripts/update-readme.mjs
         env:
           # Read-only PAT: private repo metadata + private contribution counts
@@ -45,7 +45,7 @@ jobs:
           PUSH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
         run: |
-          git add README.md assets/terminal.svg assets/arcade.svg
+          git add README.md assets/terminal.svg assets/projects.svg assets/contrib.svg
           git diff --cached --quiet && { echo "No changes"; exit 0; }
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
