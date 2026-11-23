@@ -1,9 +1,11 @@
+// Renders the "recent projects" table and the combined stack row into README.md.
+// Runs on Bun (or Node ≥ 20). Env: PROFILE_USER (required), GITHUB_TOKEN (read-only PAT; optional).
 import fs from 'node:fs';
 
-const username = process.env.PROFILE_USER;
+const username = process.env.PROFILE_USER ?? '';
 const token = process.env.GITHUB_TOKEN;
-if (!username) {
-  console.error('Missing required environment variable: PROFILE_USER');
+if (!/^[A-Za-z0-9](?:[A-Za-z0-9-]{0,38})$/.test(username)) {
+  console.error('PROFILE_USER must be a valid GitHub username');
   process.exit(1);
 }
 
@@ -12,6 +14,8 @@ const API = 'https://api.github.com';
 const WINDOW_DAYS = 7;
 const MAX_PROJECTS = 10;
 const MAX_COMMITS_SCANNED = 20; // commit details fetched per repo for language detection
+const BADGES_PER_ROW = 6;
+const REQUEST_TIMEOUT_MS = 15_000;
 const windowStart = new Date(Date.now() - WINDOW_DAYS * 864e5);
 const since = encodeURIComponent(windowStart.toISOString());
 const me = username.toLowerCase();
@@ -23,7 +27,7 @@ const HEADERS = {
   ...(token && { Authorization: `Bearer ${token}` }),
 };
 
-// extension → language
+// file extension → language
 const LANGUAGE_MAP = {
   js: 'JavaScript', jsx: 'JavaScript', mjs: 'JavaScript', cjs: 'JavaScript',
   ts: 'TypeScript', tsx: 'TypeScript', mts: 'TypeScript', cts: 'TypeScript',
@@ -41,6 +45,9 @@ const LANGUAGE_MAP = {
   odin: 'Odin', m: 'Objective-C', sol: 'Solidity', v: 'V', wasm: 'WebAssembly',
   xml: 'XML', yaml: 'YAML', yml: 'YAML', toml: 'TOML', zig: 'Zig',
 };
+
+// GitHub linguist names (repo-language fallback) → our names
+const LINGUIST_ALIASES = { Shell: 'Bash', SCSS: 'Sass', 'Jupyter Notebook': 'Python', PLpgSQL: 'SQL', TSQL: 'SQL' };
 
 // language → [badge colour, simple-icons slug]; slug defaults to lowercased name
 const BADGE = {
@@ -60,30 +67,43 @@ const BADGE = {
   XML: ['767C52'], YAML: ['CB171E'], Zig: ['F7A41D'],
 };
 
+// language → skillicons.dev id (only ids verified to exist)
+const SKILL_ICON = {
+  Astro: 'astro', Bash: 'bash', C: 'c', 'C++': 'cpp', 'C#': 'cs', CMake: 'cmake', Clojure: 'clojure',
+  CoffeeScript: 'coffeescript', Crystal: 'crystal', CSS: 'css', Dart: 'dart', Dockerfile: 'docker',
+  Elixir: 'elixir', Fortran: 'fortran', Go: 'go', Gradle: 'gradle', GraphQL: 'graphql', Haskell: 'haskell',
+  Haxe: 'haxe', HTML: 'html', Java: 'java', JavaScript: 'js', Kotlin: 'kotlin', Less: 'less', Lua: 'lua',
+  Nim: 'nim', Nix: 'nix', OCaml: 'ocaml', Perl: 'perl', PHP: 'php', PowerShell: 'powershell', Python: 'py',
+  R: 'r', Ruby: 'ruby', Rust: 'rust', Sass: 'sass', Scala: 'scala', Solidity: 'solidity', SQL: 'postgres',
+  Svelte: 'svelte', Swift: 'swift', TeX: 'latex', TypeScript: 'ts', V: 'v', Vue: 'vue',
+  WebAssembly: 'wasm', Zig: 'zig',
+};
+
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function fetchJson(path, retries = 3) {
-  const url = path.startsWith('http') ? path : API + path;
+  const url = new URL(path, API);
+  if (url.origin !== API) throw new Error(`Refusing to call non-GitHub URL: ${url}`);
   for (let attempt = 1; ; attempt++) {
     let res;
     try {
-      res = await fetch(url, { headers: HEADERS });
+      res = await fetch(url, { headers: HEADERS, signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS) });
     } catch (err) {
-      if (attempt >= retries) throw new Error(`Network error for ${url}: ${err.message}`);
-      await sleep(1000);
+      if (attempt >= retries) throw new Error(`Network error for ${url.pathname}: ${err.message}`);
+      await sleep(1000 * attempt);
       continue;
     }
     if (res.ok) return res.status === 204 ? null : res.json().catch(() => null);
-    if (res.status === 401) throw new Error(`GitHub API auth error 401 for ${url}`);
+    if (res.status === 401) throw new Error('GitHub API rejected the token (401)');
     if (res.status === 409) return null; // empty repository
-    const retryable = res.status === 202 || res.status === 403 || res.status === 429 || res.status >= 500;
+    const retryable = [202, 403, 429].includes(res.status) || res.status >= 500;
     if (!retryable || attempt >= retries) {
-      if (res.status >= 500 || res.status === 429) throw new Error(`GitHub API error ${res.status} for ${url}`);
-      console.warn(`⚠️  ${res.status} for ${url}, skipping`);
+      if (res.status >= 500 || res.status === 429) throw new Error(`GitHub API error ${res.status} for ${url.pathname}`);
+      console.warn(`⚠️  ${res.status} for ${url.pathname}, skipping`);
       return null;
     }
     const retryAfter = Number(res.headers.get('retry-after'));
-    await sleep(retryAfter > 0 ? retryAfter * 1000 : res.status === 202 ? 1500 : 5000);
+    await sleep(retryAfter > 0 ? Math.min(retryAfter, 60) * 1000 : res.status === 202 ? 1500 : 5000);
   }
 }
 
@@ -103,14 +123,14 @@ async function fetchRepositories() {
 }
 
 function inferLanguage(filename) {
-  const lower = filename.toLowerCase();
-  const base = lower.split('/').pop();
+  const base = filename.toLowerCase().split('/').pop();
   if (base === 'dockerfile' || base.endsWith('.dockerfile')) return 'Dockerfile';
   if (base === 'makefile' || base === 'gnumakefile') return 'Makefile';
   const ext = base.match(/\.([a-z0-9]+)$/)?.[1];
-  return ext ? LANGUAGE_MAP[ext] ?? null : null;
+  return (ext && LANGUAGE_MAP[ext]) || null;
 }
 
+// Returns [[language, share 0..1], ...] sorted by share, from the files I touched (repo stats as fallback).
 async function getAuthoredLanguages(repo, commits) {
   const counts = new Map();
   const details = await Promise.all(
@@ -120,9 +140,15 @@ async function getAuthoredLanguages(repo, commits) {
     const lang = inferLanguage(file.filename);
     if (lang) counts.set(lang, (counts.get(lang) ?? 0) + (file.changes || 1));
   }
-  if (counts.size) return [...counts].sort((a, b) => b[1] - a[1]).map(([name]) => name);
-  const repoLangs = await fetchJson(`/repos/${repo.full_name}/languages`);
-  return Object.entries(repoLangs ?? {}).sort((a, b) => b[1] - a[1]).map(([name]) => name);
+  if (counts.size === 0) {
+    const repoLangs = await fetchJson(`/repos/${repo.full_name}/languages`);
+    for (const [name, bytes] of Object.entries(repoLangs ?? {})) {
+      const lang = LINGUIST_ALIASES[name] ?? name;
+      if (BADGE[lang]) counts.set(lang, (counts.get(lang) ?? 0) + bytes);
+    }
+  }
+  const total = [...counts.values()].reduce((a, b) => a + b, 0) || 1;
+  return [...counts].map(([lang, n]) => [lang, n / total]).sort((a, b) => b[1] - a[1]);
 }
 
 async function getContributorRank(repo) {
@@ -138,6 +164,17 @@ async function getContributorRank(repo) {
   return { rank: idx === -1 ? null : idx + 1, total: sorted.length };
 }
 
+async function buildRow(repo) {
+  const authored = await fetchJson(
+    `/repos/${repo.full_name}/commits?author=${encodeURIComponent(username)}&since=${since}&per_page=100`,
+  );
+  if (!Array.isArray(authored) || authored.length === 0) return null;
+  const [languages, rank] = await Promise.all([getAuthoredLanguages(repo, authored), getContributorRank(repo)]);
+  return { repo, languages, rank, lastCommit: authored[0].commit?.committer?.date ?? repo.pushed_at };
+}
+
+// ── rendering ───────────────────────────────────────────────────────────────
+
 const escapeHtml = str => String(str ?? '')
   .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;')
   .replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -146,17 +183,17 @@ const SAFE_GITHUB_REPO_URL = /^https:\/\/github\.com\/[A-Za-z0-9_.-]+\/[A-Za-z0-
 
 function formatProject(repo) {
   if (repo.private) return '🔒 <code>classified</code>';
-  const name = escapeHtml(repo.name);
-  if (!SAFE_GITHUB_REPO_URL.test(repo.html_url)) return `<b>${name}</b>`;
+  const name = `<b>${escapeHtml(repo.name)}</b>`;
+  if (!SAFE_GITHUB_REPO_URL.test(repo.html_url)) return name;
   const title = escapeHtml(repo.description || 'No description available');
-  return `<a href="${escapeHtml(repo.html_url)}" title="${title}"><b>${name}</b></a>`;
+  return `<a href="${escapeHtml(repo.html_url)}" title="${title}">${name}</a>`;
 }
 
 function badge(lang) {
-  const [color = '1B1F24', slug = lang.toLowerCase()] = BADGE[lang] ?? [];
-  const label = encodeURIComponent(lang.replace(/-/g, '--').replace(/_/g, '__'));
+  const [color, slug = lang.toLowerCase()] = BADGE[lang];
   const [r, g, b] = [0, 2, 4].map(i => parseInt(color.slice(i, i + 2), 16));
   const logoColor = 0.299 * r + 0.587 * g + 0.114 * b > 160 ? 'black' : 'white';
+  const label = encodeURIComponent(lang.replace(/-/g, '--').replace(/_/g, '__'));
   const src = `https://img.shields.io/badge/${label}-${color}?style=flat-square&logo=${encodeURIComponent(slug)}&logoColor=${logoColor}`;
   return `<img src="${src}" alt="${escapeHtml(lang)}" title="${escapeHtml(lang)}" height="20"/>`;
 }
@@ -168,41 +205,23 @@ function formatRank({ rank, total }) {
   return `${['', '🥇', '🥈', '🥉'][rank] || '🏅'} <b>${rank}</b>/${total}`;
 }
 
-function timeAgo(iso) {
-  const mins = Math.max(0, Math.round((Date.now() - new Date(iso)) / 6e4));
-  if (mins < 60) return `${mins}m ago`;
-  const hours = Math.round(mins / 60);
-  return hours < 24 ? `${hours}h ago` : `${Math.round(hours / 24)}d ago`;
-}
-
-async function buildRow(repo) {
-  const authored = await fetchJson(
-    `/repos/${repo.full_name}/commits?author=${encodeURIComponent(username)}&since=${since}&per_page=100`,
-  );
-  if (!Array.isArray(authored) || authored.length === 0) return null;
-  const [languages, rank] = await Promise.all([getAuthoredLanguages(repo, authored), getContributorRank(repo)]);
-  return { repo, languages, rank, lastCommit: authored[0].commit?.committer?.date ?? repo.pushed_at };
-}
-
 function renderCard(rows) {
-  const title = `<h3>⚡ Recent Transmissions <sub><sup>· last ${WINDOW_DAYS} days</sup></sub></h3>`;
-  if (rows.length === 0) return `${title}\n<p><i>Signal quiet. No projects touched in the last ${WINDOW_DAYS} days.</i></p>`;
-  const body = rows.map(({ repo, languages, rank, lastCommit }, i) => `
-  <tr>
-    <td align="center"><code>${String(i + 1).padStart(2, '0')}</code></td>
-    <td>${formatProject(repo)}</td>
-    <td>${languages.slice(0, 6).map(badge).join(' ')}</td>
-    <td align="center"><sub>${timeAgo(lastCommit)}</sub></td>
-    <td align="center">${formatRank(rank)}</td>
-  </tr>`).join('');
+  const title = `<h3>⚡ Active Projects — Past ${WINDOW_DAYS} Days</h3>`;
+  if (rows.length === 0) return `${title}\n<p><i>All quiet — no commits in the past ${WINDOW_DAYS} days.</i></p>`;
+  const body = rows.map(({ repo, languages, rank }, i) => `
+    <tr>
+      <td align="center"><code>${String(i + 1).padStart(2, '0')}</code></td>
+      <td>${formatProject(repo)}</td>
+      <td>${languages.slice(0, BADGES_PER_ROW).map(([lang]) => badge(lang)).join(' ')}</td>
+      <td align="center">${formatRank(rank)}</td>
+    </tr>`).join('');
   return `${title}
 <table>
   <thead>
     <tr>
       <th>#</th>
       <th>Project</th>
-      <th>Authored Stack</th>
-      <th>Last Commit</th>
+      <th>Stack</th>
       <th>Rank</th>
     </tr>
   </thead>
@@ -211,11 +230,31 @@ function renderCard(rows) {
 </table>`;
 }
 
-const replaceBlock = (text, tag, content) =>
-  text.replace(new RegExp(`<!-- ${tag}_START -->[\\s\\S]*?<!-- ${tag}_END -->`), `<!-- ${tag}_START -->\n${content}\n<!-- ${tag}_END -->`);
+// Union of every project's stack, weighted by each language's share within its project.
+function renderStack(rows) {
+  const score = new Map();
+  for (const { languages } of rows) {
+    for (const [lang, share] of languages) {
+      if (SKILL_ICON[lang]) score.set(lang, (score.get(lang) ?? 0) + share);
+    }
+  }
+  const langs = [...score].sort((a, b) => b[1] - a[1]).map(([lang]) => lang);
+  if (langs.length === 0) return '';
+  const ids = langs.map(lang => SKILL_ICON[lang]);
+  const perline = Math.min(ids.length, 10);
+  return `<img src="https://skillicons.dev/icons?i=${ids.join(',')}&theme=dark&perline=${perline}" alt="Stack: ${escapeHtml(langs.join(', '))}"/>`;
+}
+
+const replaceBlock = (text, tag, content) => {
+  const re = new RegExp(`<!-- ${tag}_START -->[\\s\\S]*?<!-- ${tag}_END -->`);
+  if (!re.test(text)) throw new Error(`README is missing the ${tag}_START/${tag}_END markers`);
+  return text.replace(re, () => `<!-- ${tag}_START -->\n${content}\n<!-- ${tag}_END -->`);
+};
+
+// ── main ────────────────────────────────────────────────────────────────────
 
 const repos = await fetchRepositories();
-console.log(`🔎 ${repos.length} repo(s) pushed in the last ${WINDOW_DAYS} days`);
+console.log(`🔎 ${repos.length} repo(s) pushed in the past ${WINDOW_DAYS} days`);
 
 const rows = [];
 // Repos arrive newest-push first; process in small parallel chunks until we have enough.
@@ -226,12 +265,11 @@ for (let i = 0; i < repos.length && rows.length < MAX_PROJECTS; i += 4) {
 rows.splice(MAX_PROJECTS);
 rows.sort((a, b) => new Date(b.lastCommit) - new Date(a.lastCommit));
 
-const readme = fs.readFileSync(README, 'utf8');
 const stamp = new Date().toISOString().replace('T', ' ').slice(0, 16) + ' UTC';
-const updated = replaceBlock(
-  replaceBlock(readme, 'PROJECT_CARD', renderCard(rows)),
-  'LAST_UPDATED',
-  `<img src="https://img.shields.io/badge/last_sync-${encodeURIComponent(stamp.replace(/-/g, '--'))}-0d1117?style=flat-square&labelColor=8CFF98&color=0d1117" alt="Last sync: ${stamp}"/>`,
-);
-fs.writeFileSync(README, updated);
+let readme = fs.readFileSync(README, 'utf8');
+readme = replaceBlock(readme, 'STACK', renderStack(rows));
+readme = replaceBlock(readme, 'PROJECT_CARD', renderCard(rows));
+readme = replaceBlock(readme, 'LAST_UPDATED',
+  `<img src="https://img.shields.io/badge/last_sync-${encodeURIComponent(stamp.replace(/-/g, '--'))}-0d1117?style=flat-square&labelColor=8CFF98&color=0d1117" alt="Last sync: ${stamp}"/>`);
+fs.writeFileSync(README, readme);
 console.log(`✅ README updated with ${rows.length} project(s) via ${token ? 'authenticated' : 'public'} API`);
