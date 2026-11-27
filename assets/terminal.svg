@@ -88,7 +88,7 @@ text{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:
 <text x="40" y="196" fill="#fff" opacity=".85" style="font:600 15px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;white-space:normal">Current streak</text>
 <text x="40" y="246" fill="#fff" style="font:700 40px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;white-space:normal">2 days</text>
 <text x="40" y="276" fill="#fff" opacity=".75" style="font:400 13px -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;white-space:normal">Keep the chain going</text>
-<rect x="246" y="206" width="11" height="70" rx="3" fill="#fff" opacity="0.5"/><rect x="263" y="254.82" width="11" height="21.18" rx="3" fill="#fff" opacity="0.5"/><rect x="280" y="267.18" width="11" height="8.82" rx="3" fill="#fff" opacity="0.5"/><rect x="297" y="255.44" width="11" height="20.56" rx="3" fill="#fff" opacity="0.5"/><rect x="314" y="268" width="11" height="8" rx="3" fill="#fff" opacity="0.5"/><rect x="331" y="264.5" width="11" height="11.5" rx="3" fill="#fff" opacity="0.5"/><rect x="348" y="264.29" width="11" height="11.71" rx="3" fill="#fff" opacity="0.95"/>
+<rect x="246" y="206" width="11" height="70" rx="3" fill="#fff" opacity="0.5"/><rect x="263" y="264.12" width="11" height="11.88" rx="3" fill="#fff" opacity="0.5"/><rect x="280" y="208.91" width="11" height="67.09" rx="3" fill="#fff" opacity="0.5"/><rect x="297" y="268" width="11" height="8" rx="3" fill="#fff" opacity="0.5"/><rect x="314" y="251.53" width="11" height="24.47" rx="3" fill="#fff" opacity="0.5"/><rect x="331" y="250.56" width="11" height="25.44" rx="3" fill="#fff" opacity="0.5"/><rect x="348" y="268" width="11" height="8" rx="3" fill="#fff" opacity="0.95"/>
 </g></g>
 
 <g transform="translate(0 180)"><g><animateTransform attributeName="transform" type="translate" values="0 0;0 0;0 150;0 150;0 0;0 0" keyTimes="0;0.2985;0.3212;0.9455;0.9636;1" dur="22s" repeatCount="indefinite" calcMode="spline" keySplines="0 0 1 1;.2 .8 .2 1;0 0 1 1;.4 0 .2 1;0 0 1 1"/>
@@ -158,7 +158,7 @@ text{font:13px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:
 
 <rect y="534" width="1000" height="26" fill="#8CFF98"/>
 <text x="12" y="552" fill="#0d1117" font-weight="700">[agents] 0:claude* 1:codex 2:simulator</text>
-<text x="988" y="552" fill="#0d1117" text-anchor="end">9 active · 329 commits/7d · 2d streak</text>
+<text x="988" y="552" fill="#0d1117" text-anchor="end">8 active · 326 commits/7d · 2d streak</text>
 <rect width="1000" height="560" fill="url(#scan)" opacity=".6"/>
 </g>
 <rect x=".5" y=".5" width="999" height="559" rx="12" fill="none" stroke="#8CFF98" stroke-opacity=".35"/>

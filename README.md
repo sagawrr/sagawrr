@@ -7,7 +7,7 @@
 <br/><br/>
 
 <!-- STACK_START -->
-<img src="https://skillicons.dev/icons?i=ts,swift,cs,bash,go,kotlin,postgres,rust,js,css,gradle,py,c,docker&theme=dark&perline=10" alt="Stack: TypeScript, Swift, C#, Bash, Go, Kotlin, SQL, Rust, JavaScript, CSS, Gradle, Python, C, Dockerfile"/>
+<img src="https://skillicons.dev/icons?i=ts,cs,bash,go,swift,kotlin,postgres,js,css,gradle,docker&theme=dark&perline=10" alt="Stack: TypeScript, C#, Bash, Go, Swift, Kotlin, SQL, JavaScript, CSS, Gradle, Dockerfile"/>
 <!-- STACK_END -->
 
 <br/><br/>
@@ -23,7 +23,7 @@
 <br/><br/>
 
 <!-- LAST_UPDATED_START -->
-<img src="https://img.shields.io/badge/last_sync-2026--11--27%2005%3A33%20UTC-0d1117?style=flat-square&labelColor=8CFF98&color=0d1117" alt="Last sync: 2026-11-27 05:33 UTC"/>
+<img src="https://img.shields.io/badge/last_sync-2026--11--27%2020%3A23%20UTC-0d1117?style=flat-square&labelColor=8CFF98&color=0d1117" alt="Last sync: 2026-11-27 20:23 UTC"/>
 <!-- LAST_UPDATED_END -->
 
 </div>
